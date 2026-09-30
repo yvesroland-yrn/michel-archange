@@ -28,8 +28,17 @@ class FinanceController extends Controller {
         return back()->with('ok', 'Dépense enregistrée.');
     }
     public function recu(Recette $recette) {
-        return Pdf::loadView('pdf.recu', ['numero' => $recette->recu_numero, 'date' => $recette->date, 'de' => $recette->fidele?->nom_complet ?? 'Anonyme',
-            'motif' => Recette::TYPES[$recette->type] ?? $recette->type, 'montant' => $recette->montant])->stream("recu-{$recette->recu_numero}.pdf");
+        $logoPath = public_path('images/saint.jpg');
+        $logoData = base64_encode(file_get_contents($logoPath));
+        $logoSrc = 'data:image/jpeg;base64,' . $logoData;
+        return Pdf::loadView('pdf.recu', [
+            'numero' => $recette->recu_numero,
+            'date' => $recette->date,
+            'de' => $recette->fidele?->nom_complet ?? 'Anonyme',
+            'motif' => Recette::TYPES[$recette->type] ?? $recette->type,
+            'montant' => $recette->montant,
+            'logoSrc' => $logoSrc
+        ])->stream("recu-{$recette->recu_numero}.pdf");
     }
     public function bilan(Request $r) {
         [$mois, $rec, $dep] = $this->periode($r);
