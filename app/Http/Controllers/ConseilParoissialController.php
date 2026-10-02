@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ConseilParoissial;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class ConseilParoissialController extends Controller
@@ -89,5 +90,14 @@ class ConseilParoissialController extends Controller
     {
         $conseilParoissial->delete();
         return redirect()->route('conseil-paroissial.index')->with('ok', 'Membre du conseil supprimé avec succès.');
+    }
+
+    /**
+     * Export the list to PDF.
+     */
+    public function exportPdf()
+    {
+        $membres = ConseilParoissial::all();
+        return Pdf::loadView('pdf.conseil-paroissial', compact('membres'))->stream('conseil-paroissial.pdf');
     }
 }

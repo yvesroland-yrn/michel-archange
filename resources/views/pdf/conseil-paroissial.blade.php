@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    font-family: DejaVu Sans, sans-serif;
+    font-size: 12px;
+    color: #222;
+  }
+  .c {
+    text-align: center;
+  }
+  h1 {
+    color: #1F3A5F;
+    letter-spacing: 2px;
+    font-size: 22px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  td, th {
+    padding: 8px 10px;
+    vertical-align: top;
+    border: 1px solid #bbb;
+  }
+  th {
+    background: #1F3A5F;
+    color: #fff;
+  }
+  .logo {
+    max-width: 80px;
+    height: auto;
+    display: block;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    border: 3px solid #B8892E;
+  }
+  .actif {
+    color: green;
+    font-weight: bold;
+  }
+  .inactif {
+    color: red;
+  }
+</style>
+</head>
+<body>
+<div class="c">
+  <img src="{{ public_path('images/saint.jpg') }}" class="logo" alt="Saint Michel Archange">
+  <strong>PAROISSE SAINT MICHEL ARCHANGE DE LA BAE</strong>
+  <h1>CONSEIL PAROISSIAL</h1>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nom complet</th>
+      <th>Rôle</th>
+      <th>Téléphone</th>
+      <th>Email</th>
+      <th>Statut</th>
+    </tr>
+  </thead>
+  <tbody>
+    @forelse($membres as $m)
+    <tr>
+      <td><strong>{{ $m->nom_complet }}</strong></td>
+      <td>{{ $m->role }}</td>
+      <td>{{ $m->telephone }}</td>
+      <td>{{ $m->email }}</td>
+      <td class="{{ $m->actif ? 'actif' : 'inactif' }}">{{ $m->actif ? 'Actif' : 'Inactif' }}</td>
+    </tr>
+    @empty
+    <tr>
+      <td colspan="5" class="c">Aucun membre du conseil.</td>
+    </tr>
+    @endforelse
+  </tbody>
+</table>
+
+<div class="c" style="margin-top: 30px; font-size: 10px; color: #666;">
+  Généré le {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }}
+</div>
+</body>
+</html>

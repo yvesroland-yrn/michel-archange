@@ -1,6 +1,6 @@
 @extends('layouts.paroisse')
 @section('contenu')
-<div class="d-flex justify-content-between mb-3"><h1 class="h3">Conseil paroissial</h1><div><a href="{{ route('conseil-paroissial.create') }}" class="btn btn-primary">+ Nouveau membre</a></div></div>
+<div class="d-flex justify-content-between mb-3"><h1 class="h3">Conseil paroissial</h1><div><a href="{{ route('conseil-paroissial.create') }}" class="btn btn-primary">+ Nouveau membre</a> <a href="{{ route('conseil-paroissial.pdf') }}" target="_blank" class="btn btn-outline-dark">Export PDF</a></div></div>
 <div class="table-responsive"><table class="table table-striped bg-white align-middle"><thead><tr><th>Photo</th><th>Nom complet</th><th>Rôle</th><th>Téléphone</th><th>Email</th><th>Statut</th><th></th></tr></thead><tbody>
 @forelse($membres as $m)<tr>
 <td>@if($m->photo)<img src="{{ asset('storage/' . $m->photo) }}" class="rounded-circle" style="width:50px;height:50px;object-fit:cover;" alt="{{ $m->nom_complet }}">@else<div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center" style="width:50px;height:50px;color:#fff;">{{ mb_strtoupper(mb_substr($m->prenom, 0, 1)) }}</div>@endif</td>

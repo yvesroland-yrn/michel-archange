@@ -23,6 +23,52 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
   
+  .details-list {
+    margin: 10px 0;
+    padding-left: 15px;
+  }
+  
+  .details-list li {
+    margin-bottom: 5px;
+    font-size: 10px;
+    color: #333;
+  }
+  
+  .details-line {
+    border-bottom: 1px dotted #999;
+    min-width: 100px;
+    display: inline-block;
+  }
+  
+  .signature-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+    gap: 15px;
+  }
+  
+  .signature-box {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .signature-box-inner {
+    border: 1px solid #999;
+    padding: 10px 5px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 8px;
+  }
+  
+  .signature-label {
+    font-size: 8px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
   .header {
     text-align: center;
     border-bottom: 2px solid #D4A937;
@@ -87,20 +133,6 @@
     text-align: right;
   }
   
-  .intention-box {
-    background: #f9f9f9;
-    border-left: 3px solid #D4A937;
-    padding: 8px;
-    margin: 10px 0;
-    font-size: 10px;
-  }
-  
-  .intention-text {
-    font-style: italic;
-    color: #333;
-    line-height: 1.3;
-  }
-  
   .amount-section {
     text-align: center;
     margin: 15px 0;
@@ -155,7 +187,7 @@
       <img src="{{ $logoSrc }}" alt="Saint Michel">
     </div>
     <p class="parish-name">Paroisse St Michel</p>
-    <h1 class="receipt-title">REÇU</h1>
+    <h1 class="receipt-title">REÇU {{ $categorie }}</h1>
     <p class="receipt-number">N° {{ $numero }}</p>
   </div>
   
@@ -168,13 +200,24 @@
     <span class="info-value">{{ $de }}</span>
   </div>
   
-  <div class="intention-box">
-    <div class="intention-text">{{ $motif }}</div>
-  </div>
+  <ul class="details-list">
+    <li><span class="details-line">{{ $motif }}</span></li>
+  </ul>
   
   <div class="amount-section">
     <div class="amount-label">Montant</div>
     <div class="amount-value">{{ number_format($montant, 0, ',', ' ') }} FCFA</div>
+  </div>
+  
+  <div class="signature-row">
+    <div class="signature-box">
+      <div class="signature-box-inner"></div>
+      <div class="signature-label">Cachet</div>
+    </div>
+    <div class="signature-box">
+      <div class="signature-box-inner"></div>
+      <div class="signature-label">Signature</div>
+    </div>
   </div>
   
   <div class="footer">

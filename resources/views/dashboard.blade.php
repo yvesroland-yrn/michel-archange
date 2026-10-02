@@ -34,7 +34,7 @@
   $ft = ['green', 'red', 'gold'];
   $j = 0;
 @endphp
-<!-- Finances -->
+<!-- Finances globales -->
 <div class="row g-3 mb-4">
   @foreach($finances as $l => $v)
     <div class="col-md-4">
@@ -48,6 +48,78 @@
     </div>
     @php $j++; @endphp
   @endforeach
+</div>
+
+<!-- Catégories de recettes -->
+<div class="card mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h5 class="mb-0"><i class="bi bi-cash-coin"></i> Trésorerie - Enregistrement rapide</h5>
+    <a href="{{ route('finance.index') }}" class="btn btn-sm btn-outline-primary">Vue complète</a>
+  </div>
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-md-3 col-6">
+        <div class="card border-primary">
+          <div class="card-body text-center">
+            <i class="bi bi-gift fs-2 text-primary"></i>
+            <h6 class="card-title mt-2">Dons</h6>
+            <p class="card-text">{{ number_format($categoryStats['don'] ?? 0, 0, ',', ' ') }} FCFA</p>
+            <button class="btn btn-sm btn-primary w-100 mt-2" onclick="openRecetteModal('don')">
+              <i class="bi bi-plus"></i> Enregistrer
+            </button>
+            <button class="btn btn-sm btn-outline-primary w-100 mt-1" onclick="openReportModal('don')">
+              <i class="bi bi-file-earmark-pdf"></i> Rapport
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card border-success">
+          <div class="card-body text-center">
+            <i class="bi bi-cash-coin fs-2 text-success"></i>
+            <h6 class="card-title mt-2">Dîmes</h6>
+            <p class="card-text">{{ number_format($categoryStats['dime'] ?? 0, 0, ',', ' ') }} FCFA</p>
+            <button class="btn btn-sm btn-success w-100 mt-2" onclick="openRecetteModal('dime')">
+              <i class="bi bi-plus"></i> Enregistrer
+            </button>
+            <button class="btn btn-sm btn-outline-success w-100 mt-1" onclick="openReportModal('dime')">
+              <i class="bi bi-file-earmark-pdf"></i> Rapport
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card border-warning">
+          <div class="card-body text-center">
+            <i class="bi bi-basket fs-2 text-warning"></i>
+            <h6 class="card-title mt-2">Quêtes</h6>
+            <p class="card-text">{{ number_format($categoryStats['quete'] ?? 0, 0, ',', ' ') }} FCFA</p>
+            <button class="btn btn-sm btn-warning w-100 mt-2" onclick="openRecetteModal('quete')">
+              <i class="bi bi-plus"></i> Enregistrer
+            </button>
+            <button class="btn btn-sm btn-outline-warning w-100 mt-1" onclick="openReportModal('quete')">
+              <i class="bi bi-file-earmark-pdf"></i> Rapport
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="card border-info">
+          <div class="card-body text-center">
+            <i class="bi bi-heart fs-2 text-info"></i>
+            <h6 class="card-title mt-2">Offrandes</h6>
+            <p class="card-text">{{ number_format($categoryStats['offrande'] ?? 0, 0, ',', ' ') }} FCFA</p>
+            <button class="btn btn-sm btn-info w-100 mt-2" onclick="openRecetteModal('offrande')">
+              <i class="bi bi-plus"></i> Enregistrer
+            </button>
+            <button class="btn btn-sm btn-outline-info w-100 mt-1" onclick="openReportModal('offrande')">
+              <i class="bi bi-file-earmark-pdf"></i> Rapport
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 @endif
 
@@ -115,6 +187,106 @@
   @endif
 </div>
 
+<!-- Messes et calendrier paroissial -->
+@if(auth()->user()->hasPermission('evenements'))
+<div class="row g-4 mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-calendar-event-fill"></i> Messes et calendrier paroissial</h5>
+        <div class="d-flex gap-2">
+          <a href="{{ route('evenements.pdf') }}" class="btn btn-sm btn-outline-success">
+            <i class="bi bi-file-earmark-pdf"></i> Exporter PDF
+          </a>
+          <a href="{{ route('evenements.index') }}" class="btn btn-sm btn-outline-primary">Voir tout</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Lieu</th>
+                <th>Célébrant</th>
+              </tr>
+            </thead>
+            <tbody>
+              @forelse($evenements as $e)
+                <tr>
+                  <td>{{ $e->date_heure->format('d/m/Y H:i') }}</td>
+                  <td class="fw-semibold">{{ $e->titre }}</td>
+                  <td>{{ App\Models\Evenement::TYPES[$e->type] ?? $e->type }}</td>
+                  <td>{{ $e->lieu ?? '-' }}</td>
+                  <td>{{ $e->celebrant ?? '-' }}</td>
+                </tr>
+              @empty
+                <tr>
+                  <td colspan="5" class="text-center text-muted py-4">Aucun événement programmé.</td>
+                </tr>
+              @endforelse
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+
+<!-- Mouvements paroissiaux -->
+@if(auth()->user()->hasPermission('mouvement_paroissial'))
+<div class="row g-4 mt-4">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-collection"></i> Mouvements paroissiaux</h5>
+        <div class="d-flex gap-2">
+          <a href="{{ route('mouvement-paroissial.pdf') }}" class="btn btn-sm btn-outline-success">
+            <i class="bi bi-file-earmark-pdf"></i> Exporter PDF
+          </a>
+          <a href="{{ route('mouvement-paroissial.index') }}" class="btn btn-sm btn-outline-primary">Voir tout</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          @forelse($mouvements as $m)
+            <div class="col-md-6 col-lg-4">
+              <div class="card h-100 border-primary">
+                <div class="card-body text-center">
+                  @if($m->icone)
+                    <i class="bi {{ $m->icone }} fs-2 text-primary mb-2"></i>
+                  @else
+                    <i class="bi bi-gear fs-2 text-primary mb-2"></i>
+                  @endif
+                  <h6 class="card-title">{{ $m->nom }}</h6>
+                  @if($m->responsable)
+                    <p class="card-text small text-muted">
+                      <i class="bi bi-person"></i> {{ $m->responsable }}
+                    </p>
+                  @endif
+                  @if($m->telephone_responsable)
+                    <p class="card-text small text-muted">
+                      <i class="bi bi-telephone"></i> {{ $m->telephone_responsable }}
+                    </p>
+                  @endif
+                </div>
+              </div>
+            </div>
+          @empty
+            <div class="col-12">
+              <p class="text-center text-muted py-4">Aucun mouvement paroissial actif.</p>
+            </div>
+          @endforelse
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+
 <!-- Actions rapides -->
 <div class="row g-4 mt-4">
   <div class="col-12">
@@ -158,5 +330,136 @@
     </div>
   </div>
 </div>
+
+<!-- Modal d'enregistrement de recette -->
+<div class="modal fade" id="recetteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Enregistrer une recette</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" action="{{ route('finance.recettes.store') }}">
+        @csrf
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input type="date" name="date" value="{{ now()->toDateString() }}" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Type</label>
+            <select name="type" id="modal-type-select" class="form-select" required>
+              <option value="">Sélectionner un type...</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Montant (FCFA)</label>
+            <input type="number" name="montant" min="1" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Donateur (facultatif)</label>
+            <select name="fidele_id" class="form-select">
+              <option value="">Aucun</option>
+              @foreach($fideles as $id=>$n)
+                <option value="{{ $id }}">{{ $n }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Note</label>
+            <input name="note" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-success">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de rapport -->
+<div class="modal fade" id="reportModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Générer un rapport</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="GET" action="{{ route('finance.bilan') }}">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Période</label>
+            <select name="mois" id="report-mois" class="form-select">
+              <option value="tout">Tout</option>
+              @for($i = 1; $i <= 12; $i++)
+                <option value="{{ now()->year }}-{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}">{{ now()->year }}-{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}</option>
+              @endfor
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Filtrer par catégorie</label>
+            <select name="category" id="report-category" class="form-select">
+              <option value="tous">Toutes les recettes</option>
+              <option value="don">Dons</option>
+              <option value="dime">Dîmes</option>
+              <option value="quete">Quêtes</option>
+              <option value="offrande">Offrandes</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary">Générer PDF</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+const categoryTypes = {
+  'don': ['don'],
+  'dime': ['dime'],
+  'quete': ['quete_ordinaire', 'quete_speciale', 'quete_imperative', 'quete_semaine', 'denier_culte'],
+  'offrande': ['offrande_messe'],
+  'autre': ['autre']
+};
+
+function openRecetteModal(category) {
+  const modal = new bootstrap.Modal(document.getElementById('recetteModal'));
+  const typeSelect = document.getElementById('modal-type-select');
+  
+  // Réinitialiser le select
+  typeSelect.innerHTML = '<option value="">Sélectionner un type...</option>';
+  
+  // Ajouter les options de la catégorie
+  const types = categoryTypes[category] || [];
+  types.forEach(type => {
+    const option = document.createElement('option');
+    option.value = type;
+    option.textContent = type.charAt(0).toUpperCase() + type.slice(1).replace(/_/g, ' ');
+    typeSelect.appendChild(option);
+  });
+  
+  // Sélectionner le premier type par défaut
+  if (types.length > 0) {
+    typeSelect.value = types[0];
+  }
+  
+  modal.show();
+}
+
+function openReportModal(category) {
+  const modal = new bootstrap.Modal(document.getElementById('reportModal'));
+  const categorySelect = document.getElementById('report-category');
+  
+  // Sélectionner la catégorie
+  categorySelect.value = category;
+  
+  modal.show();
+}
+</script>
 
 @endsection

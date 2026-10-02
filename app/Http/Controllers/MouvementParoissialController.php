@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MouvementParoissial;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class MouvementParoissialController extends Controller
@@ -87,5 +88,14 @@ class MouvementParoissialController extends Controller
     {
         $mouvementParoissial->delete();
         return redirect()->route('mouvement-paroissial.index')->with('ok', 'Mouvement supprimé avec succès.');
+    }
+
+    /**
+     * Export the list to PDF.
+     */
+    public function exportPdf()
+    {
+        $mouvements = MouvementParoissial::all();
+        return Pdf::loadView('pdf.mouvement-paroissial', compact('mouvements'))->stream('mouvements-paroissiaux.pdf');
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.paroisse')
 @section('contenu')
-<div class="d-flex justify-content-between mb-3"><h1 class="h3">Mouvements paroissiaux</h1><div><a href="{{ route('mouvement-paroissial.create') }}" class="btn btn-primary">+ Nouveau mouvement</a></div></div>
+<div class="d-flex justify-content-between mb-3"><h1 class="h3">Mouvements paroissiaux</h1><div><a href="{{ route('mouvement-paroissial.create') }}" class="btn btn-primary">+ Nouveau mouvement</a> <a href="{{ route('mouvement-paroissial.pdf') }}" target="_blank" class="btn btn-outline-dark">Export PDF</a></div></div>
 <div class="table-responsive"><table class="table table-striped bg-white align-middle"><thead><tr><th>Photo</th><th>Nom</th><th>Responsable</th><th>Téléphone</th><th>Statut</th><th></th></tr></thead><tbody>
 @forelse($mouvements as $m)<tr>
 <td>@if($m->photo)<img src="{{ asset('storage/' . $m->photo) }}" class="rounded" style="width:50px;height:50px;object-fit:cover;" alt="{{ $m->nom }}">@else<div class="rounded bg-secondary d-flex align-items-center justify-content-center" style="width:50px;height:50px;color:#fff;"><i class="bi {{ $m->icone }}"></i></div>@endif</td>

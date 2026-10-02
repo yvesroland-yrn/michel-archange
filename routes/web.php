@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('permission:cebs')->group(function () {
         Route::resource('cebs', CebController::class)->except('show');
+        Route::get('cebs/pdf', [CebController::class, 'exportPdf'])->name('cebs.pdf');
     });
 
     Route::middleware('permission:mouvements')->group(function () {
@@ -45,14 +46,17 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('permission:conseil_paroissial')->group(function () {
         Route::resource('conseil-paroissial', ConseilParoissialController::class)->except('show');
+        Route::get('conseil-paroissial/pdf', [ConseilParoissialController::class, 'exportPdf'])->name('conseil-paroissial.pdf');
     });
 
     Route::middleware('permission:mouvement_paroissial')->group(function () {
         Route::resource('mouvement-paroissial', MouvementParoissialController::class)->except('show');
+        Route::get('mouvement-paroissial/pdf', [MouvementParoissialController::class, 'exportPdf'])->name('mouvement-paroissial.pdf');
     });
 
     Route::middleware('permission:evenements')->group(function () {
         Route::resource('evenements', EvenementController::class)->except('show');
+        Route::get('evenements/pdf', [EvenementController::class, 'exportPdf'])->name('evenements.pdf');
     });
 
     Route::middleware('permission:intentions')->group(function () {
@@ -81,6 +85,11 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('permission:finances')->prefix('finances')->name('finance.')->group(function () {
         Route::get('/', [FinanceController::class, 'index'])->name('index');
+        Route::get('dons', [FinanceController::class, 'dons'])->name('dons');
+        Route::get('dimes', [FinanceController::class, 'dimes'])->name('dimes');
+        Route::get('offrandes', [FinanceController::class, 'offrandes'])->name('offrandes');
+        Route::get('quetes', [FinanceController::class, 'quetes'])->name('quetes');
+        Route::get('denier-culte', [FinanceController::class, 'denierCulte'])->name('denier-culte');
         Route::post('recettes', [FinanceController::class, 'storeRecette'])->name('recettes.store');
         Route::post('depenses', [FinanceController::class, 'storeDepense'])->name('depenses.store');
         Route::get('recettes/{recette}/recu', [FinanceController::class, 'recu'])->name('recu');

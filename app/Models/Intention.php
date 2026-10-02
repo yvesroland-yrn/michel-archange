@@ -59,7 +59,7 @@ class Intention extends Model {
     }
 
     // Obtenir les intentions en attente pour une semaine donnée
-    public static function getIntentionsEnAttente(string $numeroSemaine = null): \Illuminate\Database\Eloquent\Collection
+    public static function getIntentionsEnAttente(?string $numeroSemaine = null): \Illuminate\Database\Eloquent\Collection
     {
         $numeroSemaine = $numeroSemaine ?? self::getNumeroSemaine();
         return self::where('statut', 'en_attente')
@@ -69,7 +69,7 @@ class Intention extends Model {
     }
 
     // Obtenir les intentions tirées pour une semaine donnée
-    public static function getIntentionsTirees(string $numeroSemaine = null): \Illuminate\Database\Eloquent\Collection
+    public static function getIntentionsTirees(?string $numeroSemaine = null): \Illuminate\Database\Eloquent\Collection
     {
         $numeroSemaine = $numeroSemaine ?? self::getNumeroSemaine();
         return self::where('statut', 'tiree')
@@ -80,7 +80,7 @@ class Intention extends Model {
     }
 
     // Tirer les intentions pour une semaine (utiliser les jours détaillés si spécifiés)
-    public static function tirerIntentions(string $numeroSemaine = null): array
+    public static function tirerIntentions(?string $numeroSemaine = null): array
     {
         $numeroSemaine = $numeroSemaine ?? self::getNumeroSemaine();
         $intentions = self::getIntentionsEnAttente($numeroSemaine);

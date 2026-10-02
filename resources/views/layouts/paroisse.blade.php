@@ -73,6 +73,11 @@
     @if($can('finances'))
     <div class="side-label">Trésorerie</div>
     <a class="side-link {{ $a('finance.*') }}" href="{{ route('finance.index') }}"><i class="bi bi-cash-coin"></i>Finances</a>
+    <a class="side-link {{ $a('finance.dons') }}" href="{{ route('finance.dons') }}"><i class="bi bi-gift"></i>Dons</a>
+    <a class="side-link {{ $a('finance.dimes') }}" href="{{ route('finance.dimes') }}"><i class="bi bi-cash-coin"></i>Dîmes</a>
+    <a class="side-link {{ $a('finance.offrandes') }}" href="{{ route('finance.offrandes') }}"><i class="bi bi-heart"></i>Offrandes</a>
+    <a class="side-link {{ $a('finance.quetes') }}" href="{{ route('finance.quetes') }}"><i class="bi bi-basket"></i>Quêtes</a>
+    <a class="side-link {{ $a('finance.denier-culte') }}" href="{{ route('finance.denier-culte') }}"><i class="bi bi-church"></i>Denier du culte</a>
     @endif
 
     @if($can('users') || $can('contacts'))

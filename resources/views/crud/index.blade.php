@@ -1,6 +1,6 @@
 @extends('layouts.paroisse')
 @section('contenu')
-<div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h3 mb-0">{{ $titre }}</h1><a href="{{ route($route.'.create') }}" class="btn btn-primary">+ Ajouter</a></div>
+<div class="d-flex justify-content-between align-items-center mb-3"><h1 class="h3 mb-0">{{ $titre }}</h1><div><a href="{{ route($route.'.create') }}" class="btn btn-primary">+ Ajouter</a> @if($route === 'cebs')<a href="{{ route('cebs.pdf') }}" target="_blank" class="btn btn-outline-dark">Export PDF</a>@endif</div></div>
 @if($searchable)<form class="mb-3"><div class="input-group"><input name="q" value="{{ request('q') }}" class="form-control" placeholder="Rechercher…"><button class="btn btn-outline-secondary">OK</button></div></form>@endif
 <div class="table-responsive"><table class="table table-striped bg-white align-middle"><thead><tr>@foreach($columns as $l => $c)<th>{{ $l }}</th>@endforeach<th></th></tr></thead><tbody>
 @forelse($items as $item)<tr>

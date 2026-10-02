@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\Evenement;
+use Barryvdh\DomPDF\Facade\Pdf;
 class EvenementController extends CrudController {
     protected string $model = Evenement::class; protected string $route = 'evenements';
     protected string $titre = 'Messes et calendrier paroissial'; protected string $singulier = 'Événement';
@@ -10,4 +11,10 @@ class EvenementController extends CrudController {
             'lieu' => ['Lieu', 'text'], 'celebrant' => ['Célébrant', 'text'], 'description' => ['Description', 'textarea']];
     }
     protected function columns(): array { return ['Date' => 'date_heure', 'Titre' => 'titre', 'Type' => fn ($e) => Evenement::TYPES[$e->type] ?? $e->type, 'Lieu' => 'lieu', 'Célébrant' => 'celebrant']; }
+
+    public function exportPdf()
+    {
+        $evenements = Evenement::orderBy('date_heure')->get();
+        return Pdf::loadView('pdf.evenement', compact('evenements'))->stream('messes-calendrier-paroissial.pdf');
+    }
 }

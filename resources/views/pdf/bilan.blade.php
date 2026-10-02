@@ -7,11 +7,4 @@
 @foreach($dep as $d)<tr><td>{{ $d->date->format('d/m/Y') }}</td><td>{{ \App\Models\Depense::CATEGORIES[$d->categorie] ?? $d->categorie }}</td><td>{{ $d->libelle }}</td><td style="text-align:right">{{ number_format($d->montant, 0, ',', ' ') }}</td></tr>@endforeach
 <tr><td colspan="3"><strong>Total dépenses</strong></td><td style="text-align:right"><strong>{{ number_format($dep->sum('montant'), 0, ',', ' ') }}</strong></td></tr></table>
 <h2>Solde du mois : {{ number_format($rec->sum('montant') - $dep->sum('montant'), 0, ',', ' ') }} FCFA</h2>
-<div style="display: flex; justify-content: space-between; margin-top: 80px;">
-  <div style="width: 35%; border: 2px solid #1F3A5F; padding: 20px; height: 100px; text-align: center;">
-    <strong>Le Trésorier</strong><br><br><br>Signature et cachet
-  </div>
-  <div style="width: 55%; border: 2px solid #1F3A5F; padding: 20px; height: 100px; text-align: center;">
-    <strong>Vu et approuvé : le Curé</strong><br><br><br>Signature et cachet
-  </div>
-</div></body></html>
+</body></html>

@@ -8,7 +8,7 @@ class FideleController extends Controller {
             'date_naissance'=>'nullable|date','lieu_naissance'=>'nullable|string|max:100','telephone'=>'nullable|string|max:30',
             'email'=>'nullable|email','profession'=>'nullable|string|max:100','quartier'=>'nullable|string|max:100',
             'situation_matrimoniale'=>'nullable|string|max:50','ceb_id'=>'nullable|exists:cebs,id','statut'=>'required|in:actif,transfere,decede',
-            'baptise'=>'nullable|boolean','confirme'=>'nullable|boolean','marie'=>'nullable|boolean'];
+            'baptise'=>'nullable','confirme'=>'nullable','marie'=>'nullable'];
     }
     public function index(Request $r) {
         $q = Fidele::with('ceb', 'bapteme')->when($r->q, fn ($x) => $x->where(fn ($w) =>
