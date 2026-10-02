@@ -148,6 +148,13 @@
           </a>
         </div>
       @endif
+      @if(auth()->user()->hasPermission('intentions'))
+        <div class="col-md-3 col-6">
+          <a href="{{ route('intentions.tirage') }}" class="btn btn-outline-warning w-100">
+            <i class="bi bi-shuffle me-2"></i>Tirage intentions
+          </a>
+        </div>
+      @endif
     </div>
   </div>
 </div>

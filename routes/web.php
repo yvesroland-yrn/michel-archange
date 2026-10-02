@@ -57,6 +57,13 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('permission:intentions')->group(function () {
         Route::get('intentions/{intention}/recu', [IntentionController::class, 'recu'])->name('intentions.recu');
+        Route::get('intentions/{intention}/celebrer', [IntentionController::class, 'celebrer'])->name('intentions.celebrer');
+        Route::get('intentions/tirage', [IntentionController::class, 'tirage'])->name('intentions.tirage');
+        Route::post('intentions/tirage', [IntentionController::class, 'effectuerTirage'])->name('intentions.effectuer-tirage');
+        Route::get('intentions/liste', [IntentionController::class, 'listeSemaine'])->name('intentions.liste');
+        Route::get('intentions/export', [IntentionController::class, 'exportListe'])->name('intentions.export');
+        Route::get('intentions/export-pdf', [IntentionController::class, 'exportPdf'])->name('intentions.export-pdf');
+        Route::get('intentions/export-word', [IntentionController::class, 'exportWord'])->name('intentions.export-word');
         Route::resource('intentions', IntentionController::class)->except('show');
     });
 
