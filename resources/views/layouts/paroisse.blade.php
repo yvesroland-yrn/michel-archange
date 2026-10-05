@@ -34,6 +34,9 @@
 
     @if($can('annees_catechetiques') || $can('classes_cate') || $can('catechistes') || $can('catechumenes'))
     <div class="side-label">Catéchèse</div>
+    @if($can('classes_cate') || $can('catechistes') || $can('catechumenes'))
+    <a class="side-link {{ $a('catechese.dashboard') }}" href="{{ route('catechese.dashboard') }}"><i class="bi bi-speedometer2"></i>Tableau de bord</a>
+    @endif
     @if($can('annees_catechetiques'))
     <a class="side-link {{ $a('annees-catechetiques.*') }}" href="{{ route('annees-catechetiques.index') }}"><i class="bi bi-calendar-event-fill"></i>Année Catéchétique</a>
     @endif

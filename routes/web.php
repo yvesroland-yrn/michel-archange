@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\{AuthController, HomeController, DashboardController, FideleController, BaptemeController, SacrementController, CebController,
-    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController};
+    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'accueil'])->name('home');
@@ -75,6 +75,10 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('permission:annonces')->group(function () {
         Route::resource('annonces', AnnonceController::class)->except('show');
+    });
+
+    Route::middleware('permission:classes_cate')->group(function () {
+        Route::get('catechese/tableau-de-bord', [CatecheseDashboardController::class, 'index'])->name('catechese.dashboard');
     });
 
     Route::middleware('permission:annees_catechetiques')->group(function () {

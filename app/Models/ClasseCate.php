@@ -14,5 +14,17 @@ class ClasseCate extends Model {
         ])->all();
     }
     public static function getNiveaux(): array { return ['1ère année', '2ème année', '3ème année', '4ème année', '5ème année']; }
+    public static function getNiveauxAvecCode(): array {
+        $codes = ['', 'A', 'B', 'C', 'D'];
+        $niveaux = self::getNiveaux();
+        $result = [];
+        foreach ($niveaux as $niveau) {
+            foreach ($codes as $code) {
+                $key = $code ? $niveau . ' ' . $code : $niveau;
+                $result[$key] = $key;
+            }
+        }
+        return $result;
+    }
     public static function getSections(): array { return ['ENFANT' => 'Enfant', 'JEUNE' => 'Jeune', 'ADULTE' => 'Adulte']; }
 }
