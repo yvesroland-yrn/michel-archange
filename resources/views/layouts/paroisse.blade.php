@@ -32,10 +32,16 @@
     @endif
     @endif
 
-    @if($can('classes_cate') || $can('catechumenes'))
+    @if($can('annees_catechetiques') || $can('classes_cate') || $can('catechistes') || $can('catechumenes'))
     <div class="side-label">Catéchèse</div>
+    @if($can('annees_catechetiques'))
+    <a class="side-link {{ $a('annees-catechetiques.*') }}" href="{{ route('annees-catechetiques.index') }}"><i class="bi bi-calendar-event-fill"></i>Année Catéchétique</a>
+    @endif
     @if($can('classes_cate'))
     <a class="side-link {{ $a('classes-cate.*') }}" href="{{ route('classes-cate.index') }}"><i class="bi bi-mortarboard-fill"></i>Classes</a>
+    @endif
+    @if($can('catechistes'))
+    <a class="side-link {{ $a('catechistes.*') }}" href="{{ route('catechistes.index') }}"><i class="bi bi-person-badge-fill"></i>Catéchistes</a>
     @endif
     @if($can('catechumenes'))
     <a class="side-link {{ $a('catechumenes.*') }}" href="{{ route('catechumenes.index') }}"><i class="bi bi-journal-bookmark-fill"></i>Catéchumènes</a>

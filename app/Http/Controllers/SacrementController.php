@@ -10,9 +10,9 @@ class SacrementController extends CrudController {
     protected function fields(): array {
         $f = Fidele::options();
         return ['type' => ['Sacrement', 'select', true, Sacrement::TYPES], 'fidele_id' => ['Fidèle (époux pour un mariage)', 'select', true, $f],
-            'conjoint_id' => ['Épouse (mariage uniquement)', 'select', false, $f], 'date_celebration' => ['Date de célébration', 'date', true],
+            'conjoint_id' => ['Épouse (mariage uniquement)', 'select', false, $f], 'nom_epouse' => ['Nom de l\'épouse (si non fidèle)', 'text', false], 'date_celebration' => ['Date de célébration', 'date', true],
             'lieu' => ['Lieu', 'text', false], 'ministre' => ['Ministre / célébrant', 'text', false], 'temoin1' => ['Témoin 1', 'text', false], 'temoin2' => ['Témoin 2', 'text', false],
-            'observations' => ['Observations', 'textarea', false]];
+            'numero_registre_mariage' => ['Numéro de registre de mariage', 'text', false], 'observations' => ['Observations', 'textarea', false]];
     }
     protected function columns(): array {
         return ['N° acte' => 'numero_acte', 'Sacrement' => fn ($s) => Sacrement::TYPES[$s->type] ?? $s->type, 'Fidèle' => fn ($s) => $s->fidele?->nom_complet.($s->conjoint ? ' & '.$s->conjoint->nom_complet : ''), 'Date' => 'date_celebration'];
@@ -30,9 +30,23 @@ class SacrementController extends CrudController {
     }
     protected function prepare(array $d, $item = null): array {
         if (! $item) $d['numero_acte'] = Sacrement::prochainNumero($d['type']);
-        if ($d['type'] !== 'mariage') $d['conjoint_id'] = null;
+        if ($d['type'] !== 'mariage') {
+            $d['conjoint_id'] = null;
+            $d['nom_epouse'] = null;
+            $d['numero_registre_mariage'] = null;
+        }
         return $d;
     }
+
+    protected function extraRules($item = null): array {
+        $rules = [];
+        if (request()->get('type') === 'mariage') {
+            $rules['numero_registre_mariage'] = 'nullable|string|max:100';
+            $rules['nom_epouse'] = 'nullable|string|max:255';
+        }
+        return $rules;
+    }
+
     public function certificat(Sacrement $sacrement) {
         return Pdf::loadView('pdf.sacrement', ['s' => $sacrement->load('fidele', 'conjoint'), 'libelle' => Sacrement::TYPES[$sacrement->type]])->stream("certificat-{$sacrement->numero_acte}.pdf");
     }

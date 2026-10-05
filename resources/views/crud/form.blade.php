@@ -52,18 +52,30 @@ document.addEventListener('DOMContentLoaded', function() {
         function toggleMarriageFields() {
             const isMariage = typeSelect.value === 'mariage';
             const conjointField = document.getElementById('field-conjoint_id');
+            const nomEpouseField = document.getElementById('field-nom_epouse');
             const temoin1Field = document.getElementById('field-temoin1');
             const temoin2Field = document.getElementById('field-temoin2');
+            const numeroRegistreField = document.getElementById('field-numero_registre_mariage');
 
             if (conjointField) {
                 conjointField.style.display = isMariage ? 'block' : 'none';
                 const conjointSelect = conjointField.querySelector('select');
                 if (conjointSelect) {
                     if (isMariage) {
-                        conjointSelect.required = true;
+                        conjointSelect.required = false;
                     } else {
                         conjointSelect.required = false;
                         conjointSelect.value = '';
+                    }
+                }
+            }
+
+            if (nomEpouseField) {
+                nomEpouseField.style.display = isMariage ? 'block' : 'none';
+                const nomEpouseInput = nomEpouseField.querySelector('input');
+                if (nomEpouseInput) {
+                    if (!isMariage) {
+                        nomEpouseInput.value = '';
                     }
                 }
             }
@@ -93,10 +105,36 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             }
+
+            if (numeroRegistreField) {
+                numeroRegistreField.style.display = isMariage ? 'block' : 'none';
+                const numeroRegistreInput = numeroRegistreField.querySelector('input');
+                if (numeroRegistreInput) {
+                    if (!isMariage) {
+                        numeroRegistreInput.value = '';
+                    }
+                }
+            }
         }
 
         typeSelect.addEventListener('change', toggleMarriageFields);
         toggleMarriageFields();
+
+        // Clear nom_epouse when conjoint_id is selected, and vice versa
+        const conjointSelect = document.getElementById('select-conjoint_id');
+        const nomEpouseInput = document.getElementById('nom_epouse');
+        if (conjointSelect && nomEpouseInput) {
+            conjointSelect.addEventListener('change', function() {
+                if (this.value) {
+                    nomEpouseInput.value = '';
+                }
+            });
+            nomEpouseInput.addEventListener('input', function() {
+                if (this.value) {
+                    conjointSelect.value = '';
+                }
+            });
+        }
     }
 });
 </script>

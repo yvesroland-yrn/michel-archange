@@ -7,7 +7,6 @@
 <tr><td>A reçu le baptême le</td><td>{{ $b->date_bapteme->format('d/m/Y') }} {{ $b->lieu ? 'à '.$b->lieu : '' }}</td></tr>
 <tr><td>Des mains de</td><td>{{ $b->ministre }}</td></tr>
 <tr><td>Parrain / Marraine</td><td>{{ $b->parrain }} / {{ $b->marraine }}</td></tr>
-<tr><td>Registre</td><td>Livre {{ $b->livre }} — Folio {{ $b->folio }}</td></tr>
 @isset($b->numero_carnet_bapteme)<tr><td>N° Carnet</td><td>{{ $b->numero_carnet_bapteme }}</td></tr>@endisset
 </table>
 <p class="sig">Délivré à Abidjan, le {{ now()->format('d/m/Y') }}<br><br><strong>Le Curé</strong></p></div></body></html>

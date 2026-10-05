@@ -3,10 +3,13 @@
 <p>Je soussigné, certifie que le mariage religieux a été célébré entre :</p>
 <table><tr><td>Époux</td><td><strong>{{ $s->fidele->nom_complet }}</strong></td></tr>
 <tr><td>Né le</td><td>{{ $s->fidele->date_naissance?->format('d/m/Y') }} à {{ $s->fidele->lieu_naissance }}</td></tr>
-<tr><td>Épouse</td><td><strong>{{ $s->conjoint?->nom_complet ?? 'Non renseigné' }}</strong></td></tr>
-<tr><td>Née le</td><td>{{ $s->conjoint?->date_naissance?->format('d/m/Y') ?? '-' }} à {{ $s->conjoint?->lieu_naissance ?? '-' }}</td></tr>
+<tr><td>Épouse</td><td><strong>{{ $s->nom_epouse ?? ($s->conjoint?->nom_complet ?? 'Non renseigné') }}</strong></td></tr>
+@if($s->conjoint)
+<tr><td>Née le</td><td>{{ $s->conjoint->date_naissance?->format('d/m/Y') ?? '-' }} à {{ $s->conjoint->lieu_naissance ?? '-' }}</td></tr>
+@endif
 <tr><td>Le mariage a été célébré le</td><td>{{ $s->date_celebration->format('d/m/Y') }} {{ $s->lieu ? 'à '.$s->lieu : '' }}</td></tr>
 <tr><td>Des mains de</td><td>{{ $s->ministre }}</td></tr>
 <tr><td>Témoins</td><td>{{ $s->temoin1 }}{{ $s->temoin2 ? ' / '.$s->temoin2 : '' }}</td></tr>
+@isset($s->numero_registre_mariage)<tr><td>N° Registre de mariage</td><td>{{ $s->numero_registre_mariage }}</td></tr>@endisset
 @isset($s->observations)<tr><td>Observations</td><td>{{ $s->observations }}</td></tr>@endisset</table>
 <p class="sig">Délivré à Abidjan, le {{ now()->format('d/m/Y') }}<br><br><strong>Le Curé</strong></p></div></body></html>
