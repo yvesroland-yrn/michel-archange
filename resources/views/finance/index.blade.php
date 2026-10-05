@@ -17,6 +17,7 @@
       <option value="don">Dons</option>
       <option value="dime">Dîmes</option>
       <option value="quete">Quêtes</option>
+      <option value="denier_culte">Denier du culte</option>
       <option value="offrande">Offrandes</option>
       <option value="autre">Autre</option>
     </select>
@@ -145,22 +146,27 @@
 
   <!-- Boutons de sélection rapide de catégorie -->
   <div class="row g-2 mb-3">
-    <div class="col-6">
+    <div class="col-4">
       <button type="button" class="btn btn-outline-primary w-100 category-btn" data-category="don">
         <i class="bi bi-gift"></i> Dons
       </button>
     </div>
-    <div class="col-6">
+    <div class="col-4">
       <button type="button" class="btn btn-outline-success w-100 category-btn" data-category="dime">
         <i class="bi bi-cash-coin"></i> Dîmes
       </button>
     </div>
-    <div class="col-6">
+    <div class="col-4">
       <button type="button" class="btn btn-outline-warning w-100 category-btn" data-category="quete">
         <i class="bi bi-basket"></i> Quêtes
       </button>
     </div>
-    <div class="col-6">
+    <div class="col-4">
+      <button type="button" class="btn btn-outline-secondary w-100 category-btn" data-category="denier_culte">
+        <i class="bi bi-church"></i> Denier du culte
+      </button>
+    </div>
+    <div class="col-4">
       <button type="button" class="btn btn-outline-info w-100 category-btn" data-category="offrande">
         <i class="bi bi-heart"></i> Offrandes
       </button>
@@ -180,7 +186,7 @@
   <div class="col-6"><input type="number" name="montant" min="0" placeholder="Montant" class="form-control" id="montant-input" required></div>
   <div class="col-6"><select name="fidele_id" class="form-select"><option value="">Donateur (facultatif)</option>@foreach($fideles as $id=>$n)<option value="{{ $id }}">{{ $n }}</option>@endforeach</select></div>
   <div class="col-12"><input name="note" placeholder="Note" class="form-control"></div><div class="col-12"><button class="btn btn-success w-100">Ajouter la recette</button></div></form>
-  <div class="table-responsive"><table class="table table-sm bg-white"><thead><tr><th>Date</th><th>Type</th><th>Reçu</th><th class="text-end">Montant</th></tr></thead><tbody>@foreach($rec as $r)<tr><td>{{ $r->date->format('d/m/Y') }}</td><td>{{ $r->type === 'denier_culte' ? '<i class="bi bi-church"></i> ' : '' }}{{ \App\Models\Recette::TYPES[$r->type] ?? $r->type }}</td><td><a target="_blank" href="{{ route('finance.recu', $r) }}">{{ $r->recu_numero }}</a></td><td class="text-end">{{ number_format($r->montant,0,',',' ') }}</td></tr>@endforeach</tbody></table></div>
+  <div class="table-responsive"><table class="table table-sm bg-white"><thead><tr><th>Date</th><th>Type</th><th>Reçu</th><th class="text-end">Montant</th></tr></thead><tbody>@foreach($rec as $r)<tr><td>{{ $r->date->format('d/m/Y') }}</td><td>{!! $r->type === 'denier_culte' ? '<i class="bi bi-church"></i> ' : '' !!}{{ \App\Models\Recette::TYPES[$r->type] ?? $r->type }}</td><td><a target="_blank" href="{{ route('finance.recu', $r) }}">{{ $r->recu_numero }}</a></td><td class="text-end">{{ number_format($r->montant,0,',',' ') }}</td></tr>@endforeach</tbody></table></div>
 </div>
 <div class="col-lg-6"><h2 class="h5">Dépenses ({{ number_format($dep->sum('montant'),0,',',' ') }})</h2>
 <form method="POST" action="{{ route('finance.depenses.store') }}" class="row g-2 mb-2">@csrf
@@ -196,7 +202,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryTypes = {
         'don': ['don'],
         'dime': ['dime'],
-        'quete': ['quete_ordinaire', 'quete_speciale', 'quete_imperative', 'quete_semaine', 'denier_culte'],
+        'quete': ['quete_ordinaire', 'quete_speciale', 'quete_imperative', 'quete_semaine'],
+        'denier_culte': ['denier_culte'],
         'offrande': ['offrande_messe'],
         'autre': ['autre']
     };
@@ -276,7 +283,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const categoryTypeMap = {
                     'don': ['Don'],
                     'dime': ['Dîme'],
-                    'quete': ['Quête ordinaire', 'Quête spéciale', 'Quête impérative', 'Quête en semaine', 'Denier du culte'],
+                    'quete': ['Quête ordinaire', 'Quête spéciale', 'Quête impérative', 'Quête en semaine'],
+                    'denier_culte': ['Denier du culte'],
                     'offrande': ['Offrande de messe'],
                     'autre': ['Autre']
                 };

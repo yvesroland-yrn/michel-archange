@@ -65,7 +65,8 @@ class IntentionController extends CrudController {
             'de' => $intention->demandeur,
             'motif' => 'Offrande de messe — ' . $intention->intention,
             'montant' => $intention->offrande,
-            'logoSrc' => $logoSrc
+            'logoSrc' => $logoSrc,
+            'categorie' => 'Intention de messe'
         ])->stream("recu-{$intention->recu_numero}.pdf");
     }
 

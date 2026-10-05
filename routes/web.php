@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('permission:sacrements')->group(function () {
         Route::get('sacrements/{sacrement}/certificat', [SacrementController::class, 'certificat'])->name('sacrements.certificat');
+        Route::get('sacrements/{sacrement}/certificat-confirmation', [SacrementController::class, 'certificatConfirmation'])->name('sacrements.certificat-confirmation');
+        Route::get('sacrements/{sacrement}/certificat-mariage', [SacrementController::class, 'certificatMariage'])->name('sacrements.certificat-mariage');
         Route::resource('sacrements', SacrementController::class)->except('show');
     });
 

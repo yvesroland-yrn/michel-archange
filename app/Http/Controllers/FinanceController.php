@@ -21,7 +21,7 @@ class FinanceController extends Controller {
         $isOffrande = $r->get('type') === 'offrande_messe';
         $montantRule = $isOffrande ? 'nullable|integer|min:0' : 'required|integer|min:1';
         $noteRule = $isOffrande ? 'required_without:montant|string|max:255' : 'nullable|string|max:255';
-        $d = $r->validate(['date'=>'required|date','type'=>'required|in:'.implode(',', array_keys(Recette::TYPES)),'montant'=>$montantRule,'fidele_id'=>'nullable|exists:fideles,id','donateur_nom'=>'nullable|string|max:255','note'=>$noteRule,'type_offrande'=>'nullable|string|max:50','jour_semaine'=>'nullable|string|max:50']);
+        $d = $r->validate(['date'=>'required|date','type'=>'required|in:'.implode(',', array_keys(Recette::TYPES)),'montant'=>$montantRule,'fidele_id'=>'nullable|exists:fideles,id','donateur_nom'=>'nullable|string|max:255','note'=>$noteRule,'type_offrande'=>'nullable|string|max:50','jour_semaine'=>'nullable|string|max:50','numero_carnet_bapteme'=>'nullable|string|max:100']);
         
         // Combiner le type d'offrande avec la note si applicable
         if ($isOffrande && $r->get('type_offrande')) {
@@ -131,6 +131,16 @@ class FinanceController extends Controller {
     public function denierCulte(Request $r) {
         [$mois, $rec, $dep] = $this->periode($r);
         $rec = $rec->where('type', 'denier_culte');
+        if ($r->q) {
+            $rec = $rec->where(function($query) use ($r) {
+                $query->where('donateur_nom', 'like', "%{$r->q}%")
+                    ->orWhere('numero_carnet_bapteme', 'like', "%{$r->q}%")
+                    ->orWhereHas('fidele', function($q) use ($r) {
+                        $q->where('nom', 'like', "%{$r->q}%")
+                            ->orWhere('prenoms', 'like', "%{$r->q}%");
+                    });
+            });
+        }
         return view('finance.denier-culte', compact('rec', 'mois') + ['solde' => $rec->sum('montant'), 'fideles' => Fidele::options()]);
     }
 }

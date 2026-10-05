@@ -21,6 +21,20 @@
   <strong>Total du denier du culte : {{ number_format($solde,0,',',' ') }} FCFA</strong>
 </div>
 
+<div class="mb-3">
+  <form method="GET" class="d-flex gap-2">
+    <input type="hidden" name="vue" value="{{ $mois === 'tout' ? 'tout' : 'mois' }}">
+    @if($mois !== 'tout')
+      <input type="hidden" name="mois" value="{{ $mois }}">
+    @endif
+    <input type="text" name="q" value="{{ request('q') }}" placeholder="Rechercher par nom, numéro de carnet de baptême..." class="form-control">
+    <button type="submit" class="btn btn-primary">Rechercher</button>
+    @if(request('q'))
+      <a href="{{ route('finance.denier-culte', ['vue' => $mois === 'tout' ? 'tout' : 'mois', 'mois' => $mois]) }}" class="btn btn-outline-secondary">Effacer</a>
+    @endif
+  </form>
+</div>
+
 <div class="row g-4">
 <div class="col-lg-12">
   <h2 class="h5">Enregistrer un denier du culte</h2>
@@ -34,10 +48,11 @@
   <div class="col-6"><input type="number" name="montant" min="1" placeholder="Montant" class="form-control" required></div>
   <div class="col-6"><select name="fidele_id" class="form-select" id="fidele-select"><option value="">Donateur (facultatif)</option>@foreach($fideles as $id=>$n)<option value="{{ $id }}">{{ $n }}</option>@endforeach</select></div>
   <div class="col-12"><input name="donateur_nom" id="donateur-nom" placeholder="Nom du donateur (si non fidèle)" class="form-control"></div>
+  <div class="col-12"><input name="numero_carnet_bapteme" id="numero-carnet-bapteme" placeholder="Numéro de carnet de baptême" class="form-control"></div>
   <div class="col-12"><input name="note" placeholder="Note (nature du denier)" class="form-control"></div><div class="col-12"><button class="btn btn-secondary w-100">Ajouter le denier du culte</button></div></form>
 
   <h2 class="h5">Liste des deniers du culte ({{ number_format($rec->sum('montant'),0,',',' ') }} FCFA)</h2>
-  <div class="table-responsive"><table class="table table-sm bg-white"><thead><tr><th>Date</th><th>Type</th><th>Reçu</th><th>Donateur</th><th>Note</th><th class="text-end">Montant</th></tr></thead><tbody>@foreach($rec as $r)<tr><td>{{ $r->date->format('d/m/Y') }}</td><td>{{ \App\Models\Recette::TYPES[$r->type] ?? $r->type }}</td><td><a target="_blank" href="{{ route('finance.recu', $r) }}">{{ $r->recu_numero }}</a></td><td>{{ $r->donateur_nom }}</td><td>{{ $r->note ?? '-' }}</td><td class="text-end">{{ number_format($r->montant,0,',',' ') }}</td></tr>@endforeach</tbody></table></div>
+  <div class="table-responsive"><table class="table table-sm bg-white"><thead><tr><th>Date</th><th>Type</th><th>Reçu</th><th>Donateur</th><th>N° Carnet Baptême</th><th>Note</th><th class="text-end">Montant</th></tr></thead><tbody>@foreach($rec as $r)<tr><td>{{ $r->date->format('d/m/Y') }}</td><td>{{ \App\Models\Recette::TYPES[$r->type] ?? $r->type }}</td><td><a target="_blank" href="{{ route('finance.recu', $r) }}">{{ $r->recu_numero }}</a></td><td>{{ $r->donateur_nom }}</td><td>{{ $r->numero_carnet_bapteme ?? '-' }}</td><td>{{ $r->note ?? '-' }}</td><td class="text-end">{{ number_format($r->montant,0,',',' ') }}</td></tr>@endforeach</tbody></table></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

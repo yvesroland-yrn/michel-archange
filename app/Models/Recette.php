@@ -18,6 +18,7 @@ class Recette extends Model {
         'don' => 'Dons',
         'dime' => 'Dîmes',
         'quete' => 'Quêtes',
+        'denier_culte' => 'Denier du culte',
         'offrande' => 'Offrandes',
         'autre' => 'Autre'
     ];
@@ -25,7 +26,8 @@ class Recette extends Model {
     public const CATEGORY_TYPES = [
         'don' => ['don'],
         'dime' => ['dime'],
-        'quete' => ['quete_ordinaire', 'quete_speciale', 'quete_imperative', 'quete_semaine', 'denier_culte'],
+        'quete' => ['quete_ordinaire', 'quete_speciale', 'quete_imperative', 'quete_semaine'],
+        'denier_culte' => ['denier_culte'],
         'offrande' => ['offrande_messe'],
         'autre' => ['autre']
     ];
