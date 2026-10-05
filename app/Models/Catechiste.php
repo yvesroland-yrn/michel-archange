@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 class Catechiste extends Model {
     protected $guarded = [];
     protected $casts = ['section' => 'string', 'statut' => 'string'];
-    public function fidele() { return $this->belongsTo(Fidele::class); }
+    public function classes() { return $this->belongsToMany(ClasseCate::class, 'catechiste_classe', 'catechiste_id', 'classe_cate_id'); }
     public static function getSections(): array { return ['ENFANT' => 'Enfant', 'JEUNE' => 'Jeune', 'ADULTE' => 'Adulte']; }
     public static function getStatuts(): array { return ['actif' => 'Actif', 'inactif' => 'Inactif']; }
     public static function options(): array { return static::where('statut', 'actif')->orderBy('nom')->get()->mapWithKeys(fn ($c) => [$c->id => "{$c->nom} {$c->prenoms}"])->all(); }

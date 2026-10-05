@@ -8,7 +8,7 @@ class CatecheseDashboardController extends Controller {
         
         $stats = [];
         if ($anneeActive) {
-            $classes = $anneeActive->classes()->with('catechumenes')->get();
+            $classes = $anneeActive->classes()->with('catechumenes', 'catechistes')->get();
             $totalInscrits = 0;
             $parNiveauComplet = [];
             

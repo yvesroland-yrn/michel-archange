@@ -6,6 +6,7 @@ class ClasseCate extends Model {
     protected $guarded = [];
     protected $casts = ['section' => 'string'];
     public function catechumenes() { return $this->hasMany(Catechumene::class); }
+    public function catechistes() { return $this->belongsToMany(Catechiste::class, 'catechiste_classe', 'classe_cate_id', 'catechiste_id'); }
     public function catechiste() { return $this->belongsTo(Catechiste::class); }
     public function anneeCatechetique() { return $this->belongsTo(AnneeCatechetique::class); }
     public static function options(): array {

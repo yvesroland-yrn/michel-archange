@@ -93,7 +93,7 @@
                             <tr>
                                 <td><strong>{!! $classe->niveau !!}{!! $classe->code ? " <span class='badge bg-primary'>{$classe->code}</span>" : '' !!}</strong></td>
                                 <td>{{ \App\Models\ClasseCate::getSections()[$classe->section] ?? $classe->section }}</td>
-                                <td>{{ $classe->catechiste ? $classe->catechiste->nom . ' ' . $classe->catechiste->prenoms : '—' }}</td>
+                                <td>{{ $classe->catechistes->count() > 0 ? implode(', ', $classe->catechistes->map(fn ($c) => $c->nom . ' ' . $c->prenoms)->toArray()) : '—' }}</td>
                                 <td class="text-end"><strong>{{ $classe->catechumenes()->count() }}</strong></td>
                             </tr>
                             @endforeach
