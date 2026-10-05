@@ -136,6 +136,62 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     }
+
+    // Gestion du champ fidele_id pour catéchumènes
+    const fideleSelect = document.getElementById('select-fidele_id');
+    if (fideleSelect) {
+        function toggleCatechumeneFields() {
+            const hasFidele = fideleSelect.value !== '';
+            const fieldsToToggle = ['nom', 'prenoms', 'profession', 'situation', 'classe_etude',
+                'telephone', 'telephone_parent', 'nom_urgence', 'contact_urgence',
+                'parrain', 'marraine', 'annee_cate', 'ceb', 'bapte', 'montant_a_payer'];
+
+            fieldsToToggle.forEach(fieldName => {
+                const field = document.getElementById('field-' + fieldName);
+                if (field) {
+                    field.style.display = hasFidele ? 'none' : 'block';
+                    const input = field.querySelector('input, select, textarea');
+                    if (input) {
+                        if (hasFidele) {
+                            input.required = false;
+                            if (input.type === 'checkbox') {
+                                input.checked = false;
+                            } else {
+                                input.value = '';
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        fideleSelect.addEventListener('change', toggleCatechumeneFields);
+        toggleCatechumeneFields();
+    }
+
+    // Gestion du champ situation pour afficher classe_etude
+    const situationSelect = document.getElementById('select-situation');
+    if (situationSelect) {
+        function toggleClasseEtudeField() {
+            const isStudent = situationSelect.value === 'eleve' || situationSelect.value === 'etudiant';
+            const classeEtudeField = document.getElementById('field-classe_etude');
+            if (classeEtudeField) {
+                classeEtudeField.style.display = isStudent ? 'block' : 'none';
+                const input = classeEtudeField.querySelector('input');
+                if (input) {
+                    if (isStudent) {
+                        input.required = false;
+                    } else {
+                        input.required = false;
+                        input.value = '';
+                    }
+                }
+            }
+        }
+
+        situationSelect.addEventListener('change', toggleClasseEtudeField);
+        toggleClasseEtudeField();
+    }
 });
 </script>
 @endsection
