@@ -94,6 +94,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('permission:catechumenes')->group(function () {
+        Route::get('catechumenes/{catechumene}/recu', [CatechumeneController::class, 'recu'])->name('catechumenes.recu');
         Route::resource('catechumenes', CatechumeneController::class)->except('show');
     });
 

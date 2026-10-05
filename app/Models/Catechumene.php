@@ -5,4 +5,5 @@ class Catechumene extends Model {
     protected $guarded = [];
     public function fidele() { return $this->belongsTo(Fidele::class); }
     public function classe() { return $this->belongsTo(ClasseCate::class, 'classe_cate_id'); }
+    public function mouvement() { return $this->belongsTo(Mouvement::class); }
 }

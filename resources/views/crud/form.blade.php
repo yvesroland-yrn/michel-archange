@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const hasFidele = fideleSelect.value !== '';
             const fieldsToToggle = ['nom', 'prenoms', 'profession', 'situation', 'classe_etude',
                 'telephone', 'telephone_parent', 'nom_urgence', 'contact_urgence',
-                'parrain', 'marraine', 'annee_cate', 'ceb', 'bapte', 'montant_a_payer'];
+                'parrain', 'marraine', 'annee_cate', 'ceb', 'mouvement_id', 'bapte', 'montant_a_payer'];
 
             fieldsToToggle.forEach(fieldName => {
                 const field = document.getElementById('field-' + fieldName);
