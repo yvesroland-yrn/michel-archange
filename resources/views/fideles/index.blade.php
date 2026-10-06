@@ -1,6 +1,6 @@
 @extends('layouts.paroisse')
 @section('contenu')
-<div class="d-flex justify-content-between mb-3"><h1 class="h3">Fidèles</h1><div><a href="{{ route('deniers-culte.index') }}" class="btn btn-outline-secondary">Denier du Culte</a> <a href="{{ route('fideles.export') }}" class="btn btn-outline-secondary">Export CSV</a> <a href="{{ route('fideles.create') }}" class="btn btn-primary">+ Nouveau fidèle</a></div></div>
+<div class="d-flex justify-content-between mb-3"><h1 class="h3">Fidèles</h1><div><a href="{{ route('deniers-culte.index') }}" class="btn btn-outline-secondary">Denier du Culte</a> <a href="{{ route('casuels.index') }}" class="btn btn-outline-secondary">Casuel</a> <a href="{{ route('fideles.export') }}" class="btn btn-outline-secondary">Export CSV</a> <a href="{{ route('fideles.create') }}" class="btn btn-primary">+ Nouveau fidèle</a></div></div>
 <form class="row g-2 mb-3"><div class="col-md-5"><input name="q" value="{{ request('q') }}" class="form-control" placeholder="Nom, prénoms ou téléphone"></div>
 <div class="col-md-4"><select name="ceb_id" class="form-select"><option value="">Toutes les CEB</option>@foreach($cebs as $c)<option value="{{ $c->id }}" @selected(request('ceb_id')==$c->id)>{{ $c->nom }}</option>@endforeach</select></div>
 <div class="col-md-3"><button class="btn btn-outline-secondary w-100">Rechercher</button></div></form>

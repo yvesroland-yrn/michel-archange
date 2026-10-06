@@ -30,6 +30,9 @@
     @if($can('fideles'))
     <a class="side-link {{ $a('deniers-culte.*') }}" href="{{ route('deniers-culte.index') }}"><i class="bi bi-cash-coin"></i>Denier du Culte</a>
     @endif
+    @if($can('fideles'))
+    <a class="side-link {{ $a('casuels.*') }}" href="{{ route('casuels.index') }}"><i class="bi bi-file-earmark-text"></i>Casuel</a>
+    @endif
     @if($can('sacrements'))
     <a class="side-link {{ $a('sacrements.*') }}" href="{{ route('sacrements.index') }}"><i class="bi bi-droplet-half"></i>Sacrements</a>
     @endif

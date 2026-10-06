@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\{AuthController, HomeController, DashboardController, FideleController, BaptemeController, SacrementController, CebController,
-    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController, DenierCulteController};
+    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController, DenierCulteController, CasuelController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'accueil'])->name('home');
@@ -30,6 +30,14 @@ Route::middleware('auth')->group(function () {
         Route::delete('deniers-culte/{denier}', [DenierCulteController::class, 'destroy'])->name('deniers-culte.destroy');
         Route::get('deniers-culte/{denier}/recu', [DenierCulteController::class, 'recu'])->name('deniers-culte.recu');
         Route::get('deniers-culte/export-pdf', [DenierCulteController::class, 'exportPdf'])->name('deniers-culte.export-pdf');
+    });
+
+    Route::middleware('permission:fideles')->group(function () {
+        Route::get('casuels', [CasuelController::class, 'index'])->name('casuels.index');
+        Route::post('casuels', [CasuelController::class, 'store'])->name('casuels.store');
+        Route::delete('casuels/{casuel}', [CasuelController::class, 'destroy'])->name('casuels.destroy');
+        Route::get('casuels/{casuel}/recu', [CasuelController::class, 'recu'])->name('casuels.recu');
+        Route::get('casuels/export-pdf', [CasuelController::class, 'exportPdf'])->name('casuels.export-pdf');
     });
 
     Route::middleware('permission:sacrements')->group(function () {
