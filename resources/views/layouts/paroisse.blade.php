@@ -27,6 +27,9 @@
     @if($can('fideles'))
     <a class="side-link {{ $a('fideles.*') }}" href="{{ route('fideles.index') }}"><i class="bi bi-people-fill"></i>Fidèles</a>
     @endif
+    @if($can('fideles'))
+    <a class="side-link {{ $a('deniers-culte.*') }}" href="{{ route('deniers-culte.index') }}"><i class="bi bi-cash-coin"></i>Denier du Culte</a>
+    @endif
     @if($can('sacrements'))
     <a class="side-link {{ $a('sacrements.*') }}" href="{{ route('sacrements.index') }}"><i class="bi bi-droplet-half"></i>Sacrements</a>
     @endif
@@ -86,7 +89,6 @@
     <a class="side-link {{ $a('finance.dimes') }}" href="{{ route('finance.dimes') }}"><i class="bi bi-cash-coin"></i>Dîmes</a>
     <a class="side-link {{ $a('finance.offrandes') }}" href="{{ route('finance.offrandes') }}"><i class="bi bi-heart"></i>Offrandes</a>
     <a class="side-link {{ $a('finance.quetes') }}" href="{{ route('finance.quetes') }}"><i class="bi bi-basket"></i>Quêtes</a>
-    <a class="side-link {{ $a('finance.denier-culte') }}" href="{{ route('finance.denier-culte') }}"><i class="bi bi-church"></i>Denier du culte</a>
     @endif
 
     @if($can('users') || $can('contacts'))

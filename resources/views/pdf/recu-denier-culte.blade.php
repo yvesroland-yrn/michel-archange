@@ -44,22 +44,24 @@
 <div class="c">
   <img src="{{ public_path('images/saint.jpg') }}" class="logo" alt="Saint Michel Archange">
   <strong>PAROISSE SAINT MICHEL ARCHANGE DE LA BAE</strong>
-  <h1>REÇU {{ $categorie }}</h1>
+  <h1>REÇU - DENIER DU CULTE</h1>
 </div>
 
 <div class="info">
   <p><strong>Numéro de reçu :</strong> {{ $numero }}</p>
-  <p><strong>Date :</strong> {{ \Carbon\Carbon::parse($date)->format('d/m/Y') }}</p>
-  <p><strong>Catechumène :</strong> {{ $nom }}</p>
-  <p><strong>Année catéchèse :</strong> {{ $annee_cate }}</p>
-  <p><strong>Classe :</strong> {{ $classe }}</p>
-  @if($mouvement)
-  <p><strong>Mouvement :</strong> {{ $mouvement }}</p>
+  <p><strong>Date :</strong> {{ $date->format('d/m/Y') }}</p>
+  <p><strong>Donateur :</strong> {{ $donateur }}</p>
+  @if($numero_carnet)
+  <p><strong>Numéro de carnet de baptême :</strong> {{ $numero_carnet }}</p>
+  @endif
+  <p><strong>Période :</strong> {{ $periode }}</p>
+  @if($note)
+  <p><strong>Note :</strong> {{ $note }}</p>
   @endif
 </div>
 
 <div class="c total">
-  Montant payé : {{ number_format($montant, 0, ',', ' ') }} FCFA
+  Montant : {{ number_format($montant, 0, ',', ' ') }} FCFA
 </div>
 
 <div class="c" style="margin-top: 50px; font-size: 10px; color: #666;">

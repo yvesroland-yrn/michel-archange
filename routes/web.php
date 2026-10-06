@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\{AuthController, HomeController, DashboardController, FideleController, BaptemeController, SacrementController, CebController,
-    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController};
+    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController, DenierCulteController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'accueil'])->name('home');
@@ -21,6 +21,15 @@ Route::middleware('auth')->group(function () {
         Route::get('fideles/{fidele}/bapteme/creer', [BaptemeController::class, 'create'])->name('baptemes.create');
         Route::post('fideles/{fidele}/bapteme', [BaptemeController::class, 'store'])->name('baptemes.store');
         Route::get('baptemes/{bapteme}/certificat', [BaptemeController::class, 'certificat'])->name('baptemes.certificat');
+    });
+
+    Route::middleware('permission:fideles')->group(function () {
+        Route::get('deniers-culte', [DenierCulteController::class, 'index'])->name('deniers-culte.index');
+        Route::post('deniers-culte', [DenierCulteController::class, 'store'])->name('deniers-culte.store');
+        Route::put('deniers-culte/{denier}', [DenierCulteController::class, 'update'])->name('deniers-culte.update');
+        Route::delete('deniers-culte/{denier}', [DenierCulteController::class, 'destroy'])->name('deniers-culte.destroy');
+        Route::get('deniers-culte/{denier}/recu', [DenierCulteController::class, 'recu'])->name('deniers-culte.recu');
+        Route::get('deniers-culte/export-pdf', [DenierCulteController::class, 'exportPdf'])->name('deniers-culte.export-pdf');
     });
 
     Route::middleware('permission:sacrements')->group(function () {

@@ -59,6 +59,10 @@
               @endif
             </div>
           </div>
+          <div class="col-12">
+            <label class="text-muted small mb-1">N° Carnet Baptême</label>
+            <div class="fw-semibold">{{ $f->numero_carnet_bapteme ?? '—' }}</div>
+          </div>
         </div>
       </div>
     </div>

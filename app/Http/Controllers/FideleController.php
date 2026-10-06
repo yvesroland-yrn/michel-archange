@@ -8,7 +8,7 @@ class FideleController extends Controller {
             'date_naissance'=>'nullable|date','lieu_naissance'=>'nullable|string|max:100','telephone'=>'nullable|string|max:30',
             'email'=>'nullable|email','profession'=>'nullable|string|max:100','quartier'=>'nullable|string|max:100',
             'situation_matrimoniale'=>'nullable|string|max:50','ceb_id'=>'nullable|exists:cebs,id','statut'=>'required|in:actif,transfere,decede',
-            'baptise'=>'nullable','confirme'=>'nullable','marie'=>'nullable'];
+            'numero_carnet_bapteme'=>'nullable|string|max:100','baptise'=>'nullable','confirme'=>'nullable','marie'=>'nullable'];
     }
     public function index(Request $r) {
         $q = Fidele::with('ceb', 'bapteme')->when($r->q, fn ($x) => $x->where(fn ($w) =>
@@ -39,8 +39,8 @@ class FideleController extends Controller {
     public function export() {
         return response()->streamDownload(function () {
             $o = fopen('php://output', 'w'); fwrite($o, "\xEF\xBB\xBF");
-            fputcsv($o, ['Nom', 'Prénoms', 'Sexe', 'Naissance', 'Téléphone', 'Quartier', 'CEB', 'Statut', 'Baptisé', 'Confirmé', 'Marié'], ';');
-            Fidele::with('ceb')->orderBy('nom')->chunk(200, fn ($c) => $c->each(fn ($f) => fputcsv($o, [$f->nom, $f->prenoms, $f->sexe, $f->date_naissance?->format('d/m/Y'), $f->telephone, $f->quartier, $f->ceb?->nom, $f->statut, $f->baptise ? 'Oui' : 'Non', $f->confirme ? 'Oui' : 'Non', $f->marie ? 'Oui' : 'Non'], ';')));
+            fputcsv($o, ['Nom', 'Prénoms', 'Sexe', 'Naissance', 'Téléphone', 'Quartier', 'CEB', 'N° Carnet Baptême', 'Statut', 'Baptisé', 'Confirmé', 'Marié'], ';');
+            Fidele::with('ceb')->orderBy('nom')->chunk(200, fn ($c) => $c->each(fn ($f) => fputcsv($o, [$f->nom, $f->prenoms, $f->sexe, $f->date_naissance?->format('d/m/Y'), $f->telephone, $f->quartier, $f->ceb?->nom, $f->numero_carnet_bapteme ?? '', $f->statut, $f->baptise ? 'Oui' : 'Non', $f->confirme ? 'Oui' : 'Non', $f->marie ? 'Oui' : 'Non'], ';')));
             fclose($o);
         }, 'fideles-'.now()->format('Ymd').'.csv', ['Content-Type' => 'text/csv']);
     }

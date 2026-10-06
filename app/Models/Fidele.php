@@ -8,6 +8,7 @@ class Fidele extends Model {
     public function bapteme() { return $this->hasOne(Bapteme::class); }
     public function sacrements() { return $this->hasMany(Sacrement::class); }
     public function mouvements() { return $this->belongsToMany(Mouvement::class)->withPivot('fonction'); }
+    public function deniersCulte() { return $this->hasMany(DenierCulte::class); }
     public function getNomCompletAttribute(): string { return strtoupper($this->nom).' '.$this->prenoms; }
     public static function options(): array { return static::orderBy('nom')->get()->pluck('nom_complet', 'id')->all(); }
 }
