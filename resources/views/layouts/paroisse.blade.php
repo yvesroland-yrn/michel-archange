@@ -128,4 +128,5 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>function toggleSide(){document.getElementById('side').classList.toggle('open');document.getElementById('ov').classList.toggle('show')}</script>
+@stack('scripts')
 </body></html>

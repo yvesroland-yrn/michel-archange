@@ -1,7 +1,10 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\{Catechumene, ClasseCate, Fidele};
+use App\Models\{Catechumene, ClasseCate, Fidele, AnneeCatechetique};
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
 class CatechumeneController extends CrudController {
     protected string $model = Catechumene::class; protected string $route = 'catechumenes';
     protected string $titre = 'Catéchumènes'; protected string $singulier = 'Inscription';
@@ -116,5 +119,197 @@ class CatechumeneController extends CrudController {
             'logoSrc' => $logoSrc,
             'categorie' => 'Inscription Catéchèse'
         ])->stream("recu-catechumene-{$catechumene->id}.pdf");
+    }
+
+    // Export PDF par classe
+    public function exportPdfParClasse(Request $request) {
+        $classeId = $request->get('classe_id');
+        
+        if (!$classeId) {
+            return back()->with('error', 'Veuillez sélectionner une classe.');
+        }
+
+        $classe = ClasseCate::with('anneeCatechetique')->findOrFail($classeId);
+        $catechumenes = Catechumene::with('fidele', 'mouvement')
+            ->where('classe_cate_id', $classeId)
+            ->orderBy('created_at')
+            ->get();
+
+        $logoPath = public_path('images/saint.jpg');
+        $logoData = base64_encode(file_get_contents($logoPath));
+        $logoSrc = 'data:image/jpeg;base64,' . $logoData;
+
+        return Pdf::loadView('pdf.catechumenes-par-classe', compact(
+            'catechumenes',
+            'classe',
+            'logoSrc'
+        ))->stream("catechumenes-classe-{$classe->id}.pdf");
+    }
+
+    // Export PDF par année catéchétique
+    public function exportPdfParAnnee(Request $request) {
+        $anneeId = $request->get('annee_id');
+        
+        if (!$anneeId) {
+            return back()->with('error', 'Veuillez sélectionner une année catéchétique.');
+        }
+
+        $annee = AnneeCatechetique::findOrFail($anneeId);
+        $classes = ClasseCate::where('annee_catechetique_id', $anneeId)
+            ->with('catechumenes.fidele', 'catechumenes.mouvement')
+            ->orderBy('niveau')
+            ->orderBy('code')
+            ->get();
+
+        $logoPath = public_path('images/saint.jpg');
+        $logoData = base64_encode(file_get_contents($logoPath));
+        $logoSrc = 'data:image/jpeg;base64,' . $logoData;
+
+        return Pdf::loadView('pdf.catechumenes-par-annee', compact(
+            'classes',
+            'annee',
+            'logoSrc'
+        ))->stream("catechumenes-annee-{$annee->id}.pdf");
+    }
+
+    // Export Word par classe
+    public function exportWordParClasse(Request $request) {
+        $classeId = $request->get('classe_id');
+        
+        if (!$classeId) {
+            return back()->with('error', 'Veuillez sélectionner une classe.');
+        }
+
+        $classe = ClasseCate::with('anneeCatechetique')->findOrFail($classeId);
+        $catechumenes = Catechumene::with('fidele', 'mouvement')
+            ->where('classe_cate_id', $classeId)
+            ->orderBy('created_at')
+            ->get();
+
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection();
+
+        // Titre
+        $section->addText('Liste des Catéchumènes', ['bold' => true, 'size' => 16], ['alignment' => 'center']);
+        $section->addTextBreak();
+
+        // Détails de la classe
+        $section->addText('Année catéchétique : ' . ($classe->anneeCatechetique ? $classe->anneeCatechetique->libelle : '—'), ['size' => 12]);
+        $section->addText('Classe : ' . $classe->niveau . ($classe->code ? " {$classe->code}" : '') . ' - ' . ClasseCate::getSections()[$classe->section] ?? $classe->section, ['size' => 12]);
+        $section->addText('Total : ' . $catechumenes->count() . ' catéchumène(s)', ['size' => 12]);
+        $section->addTextBreak();
+
+        // Tableau
+        $table = $section->addTable(['borderSize' => 6, 'borderColor' => '000000', 'cellMargin' => 80]);
+
+        // En-têtes
+        $table->addRow();
+        $table->addCell(3000)->addText('Nom & Prénoms', ['bold' => true]);
+        $table->addCell(2000)->addText('Téléphone', ['bold' => true]);
+        $table->addCell(2000)->addText('Statut', ['bold' => true]);
+        $table->addCell(2000)->addText('Montant payé', ['bold' => true]);
+
+        // Données
+        foreach ($catechumenes as $catechumene) {
+            $nom = $catechumene->fidele ? $catechumene->fidele->nom . ' ' . $catechumene->fidele->prenoms : ($catechumene->nom . ' ' . $catechumene->prenoms);
+            $telephone = $catechumene->fidele ? $catechumene->fidele->telephone : $catechumene->telephone;
+            $statut = ucfirst($catechumene->statut);
+            $montant = $catechumene->montant_a_payer ? number_format($catechumene->montant_a_payer, 0, '', ' ') . ' FCFA' : '—';
+
+            $table->addRow();
+            $table->addCell(3000)->addText($nom);
+            $table->addCell(2000)->addText($telephone ?? '—');
+            $table->addCell(2000)->addText($statut);
+            $table->addCell(2000)->addText($montant);
+        }
+
+        // Sauvegarder
+        $filename = "catechumenes-classe-{$classe->id}.docx";
+        $tempPath = storage_path('app/temp/' . $filename);
+
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save($tempPath);
+
+        return response()->download($tempPath, $filename)->deleteFileAfterSend();
+    }
+
+    // Export Word par année catéchétique
+    public function exportWordParAnnee(Request $request) {
+        $anneeId = $request->get('annee_id');
+        
+        if (!$anneeId) {
+            return back()->with('error', 'Veuillez sélectionner une année catéchétique.');
+        }
+
+        $annee = AnneeCatechetique::findOrFail($anneeId);
+        $classes = ClasseCate::where('annee_catechetique_id', $anneeId)
+            ->with('catechumenes.fidele', 'catechumenes.mouvement')
+            ->orderBy('niveau')
+            ->orderBy('code')
+            ->get();
+
+        $phpWord = new PhpWord();
+        $section = $phpWord->addSection();
+
+        // Titre
+        $section->addText('Liste des Catéchumènes par Année Catéchétique', ['bold' => true, 'size' => 16], ['alignment' => 'center']);
+        $section->addTextBreak();
+
+        // Détails de l'année
+        $section->addText('Année catéchétique : ' . $annee->libelle, ['size' => 12], ['alignment' => 'center']);
+        $section->addText('Total : ' . $classes->sum(function($classe) { return $classe->catechumenes->count(); }) . ' catéchumène(s)', ['size' => 12], ['alignment' => 'center']);
+        $section->addTextBreak();
+
+        // Grouper par classe
+        foreach ($classes as $classe) {
+            if ($classe->catechumenes->isEmpty()) continue;
+
+            $section->addText($classe->niveau . ($classe->code ? " {$classe->code}" : '') . ' - ' . ClasseCate::getSections()[$classe->section] ?? $classe->section, ['bold' => true, 'size' => 12]);
+            $section->addText('Effectif : ' . $classe->catechumenes->count(), ['size' => 10]);
+            $section->addTextBreak();
+
+            // Tableau pour cette classe
+            $table = $section->addTable(['borderSize' => 6, 'borderColor' => '000000', 'cellMargin' => 80]);
+
+            // En-têtes
+            $table->addRow();
+            $table->addCell(3000)->addText('Nom & Prénoms', ['bold' => true]);
+            $table->addCell(2000)->addText('Téléphone', ['bold' => true]);
+            $table->addCell(2000)->addText('Statut', ['bold' => true]);
+            $table->addCell(2000)->addText('Montant payé', ['bold' => true]);
+
+            // Données
+            foreach ($classe->catechumenes as $catechumene) {
+                $nom = $catechumene->fidele ? $catechumene->fidele->nom . ' ' . $catechumene->fidele->prenoms : ($catechumene->nom . ' ' . $catechumene->prenoms);
+                $telephone = $catechumene->fidele ? $catechumene->fidele->telephone : $catechumene->telephone;
+                $statut = ucfirst($catechumene->statut);
+                $montant = $catechumene->montant_a_payer ? number_format($catechumene->montant_a_payer, 0, '', ' ') . ' FCFA' : '—';
+
+                $table->addRow();
+                $table->addCell(3000)->addText($nom);
+                $table->addCell(2000)->addText($telephone ?? '—');
+                $table->addCell(2000)->addText($statut);
+                $table->addCell(2000)->addText($montant);
+            }
+
+            $section->addTextBreak(2);
+        }
+
+        // Sauvegarder
+        $filename = "catechumenes-annee-{$annee->id}.docx";
+        $tempPath = storage_path('app/temp/' . $filename);
+
+        if (!file_exists(storage_path('app/temp'))) {
+            mkdir(storage_path('app/temp'), 0755, true);
+        }
+
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save($tempPath);
+
+        return response()->download($tempPath, $filename)->deleteFileAfterSend();
     }
 }

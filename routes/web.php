@@ -90,11 +90,21 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('permission:catechistes')->group(function () {
+        Route::get('catechistes/export-pdf-par-classe', [CatechisteController::class, 'exportPdfParClasse'])->name('catechistes.export-pdf-par-classe');
+        Route::get('catechistes/export-pdf-par-annee', [CatechisteController::class, 'exportPdfParAnnee'])->name('catechistes.export-pdf-par-annee');
+        Route::get('catechistes/export-pdf-par-section', [CatechisteController::class, 'exportPdfParSection'])->name('catechistes.export-pdf-par-section');
+        Route::get('catechistes/export-word-par-classe', [CatechisteController::class, 'exportWordParClasse'])->name('catechistes.export-word-par-classe');
+        Route::get('catechistes/export-word-par-annee', [CatechisteController::class, 'exportWordParAnnee'])->name('catechistes.export-word-par-annee');
+        Route::get('catechistes/export-word-par-section', [CatechisteController::class, 'exportWordParSection'])->name('catechistes.export-word-par-section');
         Route::resource('catechistes', CatechisteController::class)->except('show');
     });
 
     Route::middleware('permission:catechumenes')->group(function () {
         Route::get('catechumenes/{catechumene}/recu', [CatechumeneController::class, 'recu'])->name('catechumenes.recu');
+        Route::get('catechumenes/export-pdf-par-classe', [CatechumeneController::class, 'exportPdfParClasse'])->name('catechumenes.export-pdf-par-classe');
+        Route::get('catechumenes/export-pdf-par-annee', [CatechumeneController::class, 'exportPdfParAnnee'])->name('catechumenes.export-pdf-par-annee');
+        Route::get('catechumenes/export-word-par-classe', [CatechumeneController::class, 'exportWordParClasse'])->name('catechumenes.export-word-par-classe');
+        Route::get('catechumenes/export-word-par-annee', [CatechumeneController::class, 'exportWordParAnnee'])->name('catechumenes.export-word-par-annee');
         Route::resource('catechumenes', CatechumeneController::class)->except('show');
     });
 

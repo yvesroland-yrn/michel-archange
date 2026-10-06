@@ -2,6 +2,84 @@
 @section('contenu')
 <h1 class="h3 mb-4">Tableau de bord Catéchèse</h1>
 
+<div class="card mb-4">
+  <div class="card-header bg-white">
+    <h5 class="card-title mb-0">Exports</h5>
+  </div>
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <h6 class="fw-bold mb-3">Catéchumènes</h6>
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+          <select id="exportCatechumenesType" class="form-select w-auto">
+            <option value="">Type d'export…</option>
+            <optgroup label="Par classe">
+              <option value="pdf-par-classe">PDF par classe</option>
+              <option value="word-par-classe">Word par classe</option>
+            </optgroup>
+            <optgroup label="Par année">
+              <option value="pdf-par-annee">PDF par année</option>
+              <option value="word-par-annee">Word par année</option>
+            </optgroup>
+          </select>
+          <select id="exportCatechumenesClasse" class="form-select w-auto" style="display:none;">
+            <option value="">Sélectionner une classe…</option>
+            @foreach(\App\Models\ClasseCate::with('anneeCatechetique')->orderByDesc('id')->get() as $classe)
+            <option value="{{ $classe->id }}">{{ $classe->anneeCatechetique ? $classe->anneeCatechetique->libelle : '—' }} — {{ $classe->niveau }}{{ $classe->code ? " {$classe->code}" : '' }} ({{ \App\Models\ClasseCate::getSections()[$classe->section] ?? $classe->section }})</option>
+            @endforeach
+          </select>
+          <select id="exportCatechumenesAnnee" class="form-select w-auto" style="display:none;">
+            <option value="">Sélectionner une année…</option>
+            @foreach(\App\Models\AnneeCatechetique::orderByDesc('date_debut')->get() as $annee)
+            <option value="{{ $annee->id }}">{{ $annee->libelle }}</option>
+            @endforeach
+          </select>
+          <button id="exportCatechumenesBtn" class="btn btn-primary" style="display:none;">Exporter</button>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h6 class="fw-bold mb-3">Catéchistes/Animateurs</h6>
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+          <select id="exportCatechistesType" class="form-select w-auto">
+            <option value="">Type d'export…</option>
+            <optgroup label="Par classe">
+              <option value="pdf-par-classe">PDF par classe</option>
+              <option value="word-par-classe">Word par classe</option>
+            </optgroup>
+            <optgroup label="Par année">
+              <option value="pdf-par-annee">PDF par année</option>
+              <option value="word-par-annee">Word par année</option>
+            </optgroup>
+            <optgroup label="Par section">
+              <option value="pdf-par-section">PDF par section</option>
+              <option value="word-par-section">Word par section</option>
+            </optgroup>
+          </select>
+          <select id="exportCatechistesClasse" class="form-select w-auto" style="display:none;">
+            <option value="">Sélectionner une classe…</option>
+            @foreach(\App\Models\ClasseCate::with('anneeCatechetique')->orderByDesc('id')->get() as $classe)
+            <option value="{{ $classe->id }}">{{ $classe->anneeCatechetique ? $classe->anneeCatechetique->libelle : '—' }} — {{ $classe->niveau }}{{ $classe->code ? " {$classe->code}" : '' }} ({{ \App\Models\ClasseCate::getSections()[$classe->section] ?? $classe->section }})</option>
+            @endforeach
+          </select>
+          <select id="exportCatechistesAnnee" class="form-select w-auto" style="display:none;">
+            <option value="">Sélectionner une année…</option>
+            @foreach(\App\Models\AnneeCatechetique::orderByDesc('date_debut')->get() as $annee)
+            <option value="{{ $annee->id }}">{{ $annee->libelle }}</option>
+            @endforeach
+          </select>
+          <select id="exportCatechistesSection" class="form-select w-auto" style="display:none;">
+            <option value="">Sélectionner une section…</option>
+            @foreach(\App\Models\Catechiste::getSections() as $key => $label)
+            <option value="{{ $key }}">{{ $label }}</option>
+            @endforeach
+          </select>
+          <button id="exportCatechistesBtn" class="btn btn-primary" style="display:none;">Exporter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 @if($anneeActive)
 <div class="row g-4 mb-4">
     <div class="col-md-3">
@@ -154,4 +232,114 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+// Catéchumenes exports
+const catechumenesType = document.getElementById('exportCatechumenesType');
+const catechumenesClasse = document.getElementById('exportCatechumenesClasse');
+const catechumenesAnnee = document.getElementById('exportCatechumenesAnnee');
+const catechumenesBtn = document.getElementById('exportCatechumenesBtn');
+
+catechumenesType.addEventListener('change', function() {
+  const value = this.value;
+  catechumenesClasse.style.display = 'none';
+  catechumenesAnnee.style.display = 'none';
+  catechumenesBtn.style.display = 'none';
+
+  if (value.includes('par-classe')) {
+    catechumenesClasse.style.display = 'block';
+    catechumenesBtn.style.display = 'block';
+  } else if (value.includes('par-annee')) {
+    catechumenesAnnee.style.display = 'block';
+    catechumenesBtn.style.display = 'block';
+  }
+});
+
+catechumenesBtn.addEventListener('click', function() {
+  const type = catechumenesType.value;
+  if (!type) return;
+
+  if (type.includes('par-classe')) {
+    const classeId = catechumenesClasse.value;
+    if (!classeId) return alert('Veuillez sélectionner une classe.');
+    
+    if (type.startsWith('pdf')) {
+      window.location.href = '{{ route('catechumenes.export-pdf-par-classe') }}?classe_id=' + classeId;
+    } else {
+      window.location.href = '{{ route('catechumenes.export-word-par-classe') }}?classe_id=' + classeId;
+    }
+  } else if (type.includes('par-annee')) {
+    const anneeId = catechumenesAnnee.value;
+    if (!anneeId) return alert('Veuillez sélectionner une année.');
+    
+    if (type.startsWith('pdf')) {
+      window.location.href = '{{ route('catechumenes.export-pdf-par-annee') }}?annee_id=' + anneeId;
+    } else {
+      window.location.href = '{{ route('catechumenes.export-word-par-annee') }}?annee_id=' + anneeId;
+    }
+  }
+});
+
+// Catéchistes exports
+const catechistesType = document.getElementById('exportCatechistesType');
+const catechistesClasse = document.getElementById('exportCatechistesClasse');
+const catechistesAnnee = document.getElementById('exportCatechistesAnnee');
+const catechistesSection = document.getElementById('exportCatechistesSection');
+const catechistesBtn = document.getElementById('exportCatechistesBtn');
+
+catechistesType.addEventListener('change', function() {
+  const value = this.value;
+  catechistesClasse.style.display = 'none';
+  catechistesAnnee.style.display = 'none';
+  catechistesSection.style.display = 'none';
+  catechistesBtn.style.display = 'none';
+
+  if (value.includes('par-classe')) {
+    catechistesClasse.style.display = 'block';
+    catechistesBtn.style.display = 'block';
+  } else if (value.includes('par-annee')) {
+    catechistesAnnee.style.display = 'block';
+    catechistesBtn.style.display = 'block';
+  } else if (value.includes('par-section')) {
+    catechistesSection.style.display = 'block';
+    catechistesBtn.style.display = 'block';
+  }
+});
+
+catechistesBtn.addEventListener('click', function() {
+  const type = catechistesType.value;
+  if (!type) return;
+
+  if (type.includes('par-classe')) {
+    const classeId = catechistesClasse.value;
+    if (!classeId) return alert('Veuillez sélectionner une classe.');
+    
+    if (type.startsWith('pdf')) {
+      window.location.href = '{{ route('catechistes.export-pdf-par-classe') }}?classe_id=' + classeId;
+    } else {
+      window.location.href = '{{ route('catechistes.export-word-par-classe') }}?classe_id=' + classeId;
+    }
+  } else if (type.includes('par-annee')) {
+    const anneeId = catechistesAnnee.value;
+    if (!anneeId) return alert('Veuillez sélectionner une année.');
+    
+    if (type.startsWith('pdf')) {
+      window.location.href = '{{ route('catechistes.export-pdf-par-annee') }}?annee_id=' + anneeId;
+    } else {
+      window.location.href = '{{ route('catechistes.export-word-par-annee') }}?annee_id=' + anneeId;
+    }
+  } else if (type.includes('par-section')) {
+    const section = catechistesSection.value;
+    if (!section) return alert('Veuillez sélectionner une section.');
+    
+    if (type.startsWith('pdf')) {
+      window.location.href = '{{ route('catechistes.export-pdf-par-section') }}?section=' + section;
+    } else {
+      window.location.href = '{{ route('catechistes.export-word-par-section') }}?section=' + section;
+    }
+  }
+});
+</script>
+@endpush
 @endsection
