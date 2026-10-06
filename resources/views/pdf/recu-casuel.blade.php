@@ -51,6 +51,9 @@
   <p><strong>Numéro de reçu :</strong> {{ $numero }}</p>
   <p><strong>Date :</strong> {{ $date->format('d/m/Y') }}</p>
   <p><strong>Personne :</strong> {{ $personne }}</p>
+  @if($personne2)
+  <p><strong>Époux/se :</strong> {{ $personne2 }}</p>
+  @endif
   @if($numero_reference)
   <p><strong>Numéro de référence :</strong> {{ $numero_reference }}</p>
   @endif
