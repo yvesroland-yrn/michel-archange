@@ -1,4 +1,4 @@
-:root{--navy:#0d1b33;--navy2:#162a4d;--blue:#1F3A5F;--gold:#C9A24B;--gold2:#e2c477;--crimson:#8e1f2f;--cream:#f5f2ec;--ink:#1b2333;--side-w:272px}
+:root{--navy:#0878D1;--navy2:#065BA8;--blue:#0878D1;--gold:#D4A937;--gold2:#F2D98A;--crimson:#C8322B;--cream:#FAF7F0;--ink:#1B2233;--side-w:272px}
 body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--cream);color:var(--ink)}
 h1,h2,h3,.brand-title,.motto{font-family:'Cinzel',serif}
 
@@ -84,7 +84,7 @@ h1,h2,h3,.brand-title,.motto{font-family:'Cinzel',serif}
 .stat.gold .ico{background:linear-gradient(135deg,#b8892e,var(--gold2))}.stat.green .ico{background:linear-gradient(135deg,#1f7a4d,#3fae7a)}.stat.red .ico{background:linear-gradient(135deg,var(--crimson),#c94057)}
 .stat .val{font-size:1.8rem;font-weight:700;color:var(--navy);line-height:1}.stat .lbl{margin-top:5px;color:#6b7488;font-size:.8rem}
 .welcome{position:relative;overflow:hidden;border-radius:20px;color:#fff;padding:30px 34px;min-height:170px;display:flex;flex-direction:column;justify-content:center;
-  background:linear-gradient(100deg,var(--navy) 30%,rgba(13,27,51,.72) 62%,rgba(13,27,51,.25)),url(../images/saint-michel-login.jpg) right 22%/cover no-repeat;box-shadow:0 10px 30px rgba(13,27,51,.25)}
+  background:linear-gradient(100deg,var(--navy) 30%,rgba(30,58,95,.72) 62%,rgba(30,58,95,.25)),url(../images/banniere-sanctuaire.jpg) right 22%/cover no-repeat;box-shadow:0 10px 30px rgba(13,27,51,.25)}
 .welcome h2{font-size:1.7rem;margin:0 0 6px}.welcome p{margin:0;color:#dbe3f2;max-width:520px}.welcome .motto{color:var(--gold2);letter-spacing:2px;font-size:.85rem;margin-bottom:8px}
 .event-date{flex:none;width:54px;text-align:center;border-radius:12px;background:var(--navy2);color:#fff;padding:6px 0;line-height:1.1}.event-date b{display:block;font-size:1.25rem}.event-date span{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--gold2)}
 

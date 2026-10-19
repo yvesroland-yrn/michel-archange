@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Connexion — Paroisse Saint Michel Archange</title>
+<title>Connexion — Sanctuaire Marial Notre-Dame de Cana</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,9 +12,9 @@
 
 <style>
 :root{
-  --nuit: #0B1B3A;
-  --nuit-deep: #07122B;
-  --archange: #2748B8;
+  --nuit: #0878D1;
+  --nuit-deep: #065BA8;
+  --archange: #0878D1;
   --or: #D4A937;
   --or-clair: #F2D98A;
   --ivoire: #FAF7F0;
@@ -22,7 +22,7 @@
   --encre: #1B2233;
   --brume: #6B7590;
   --parchemin: #E6E1D3;
-  --grad-ciel: linear-gradient(135deg, #07122B 0%, #0B1B3A 40%, #2748B8 100%);
+  --grad-ciel: linear-gradient(135deg, #065BA8 0%, #0878D1 40%, #0A8CE8 100%);
 }
 *{box-sizing:border-box}
 .login-body{margin:0;font-family:'Inter',sans-serif;background:var(--ivoire);overflow-x:hidden}
@@ -94,8 +94,9 @@
   animation:pulse 3.2s ease-in-out infinite;
 }
 .crest-wrap img{
-  position:relative;width:100%;height:100%;object-fit:cover;border-radius:50%;
+  position:relative;width:100%;height:100%;object-fit:contain;border-radius:50%;
   border:3px solid var(--or);box-shadow:0 10px 24px rgba(11,27,58,.35);
+  background:#fff;
 }
 @keyframes pulse{0%,100%{transform:scale(.92);opacity:.7}50%{transform:scale(1.1);opacity:1}}
 
@@ -169,11 +170,11 @@
 
   {{-- ========== IMAGE À GAUCHE ========== --}}
   <section class="art">
-    <div class="art-img" style="background-image:url('{{ asset('images/saint.jpg') }}')"></div>
+    <div class="art-img" style="background-image:url('{{ asset('images/banniere-sanctuaire.png') }}')"></div>
     <div class="art-caption">
-      <span class="tag">Paroisse de la BAE</span>
-      <h2>Saint <span>Michel</span><br>Archange</h2>
-      <p>Défends-nous dans le combat. Sois notre secours contre la malice et les embûches du démon.</p>
+      <span class="tag">Sanctuaire de Sassako</span>
+      <h2>Notre-Dame<br>de Cana</h2>
+      <p>Notre-Dame de Cana, intercédez pour nous. Sois notre refuge et notre force dans la foi.</p>
     </div>
   </section>
 
@@ -181,11 +182,15 @@
   <main class="side">
     <div class="box">
 
-      <div class="brand">Saint <b>Michel</b> Archange</div>
+      <div class="crest-wrap">
+        <img src="{{ asset('images/logo-sanctuaire.jpg') }}" alt="Sanctuaire Notre-Dame de Cana">
+      </div>
+
+      <div class="brand">Sanctuaire <b>Notre-Dame</b> de Cana</div>
       <div class="orn"><i class="bi bi-plus-lg"></i></div>
 
       <h1>Connexion</h1>
-      <p class="hint">Espace de gestion de la paroisse.<br>Connectez-vous pour accéder à votre espace.</p>
+      <p class="hint">Espace de gestion du sanctuaire.<br>Connectez-vous pour accéder à votre espace.</p>
 
       @if($errors->any())
         <div class="alert alert-danger py-2 small text-start">
@@ -218,8 +223,8 @@
         <button class="btn-login"><i class="bi bi-box-arrow-in-right"></i> Se connecter</button>
       </form>
 
-      <a href="{{ route('home') }}" class="back-link"><i class="bi bi-arrow-left"></i> Retour au site de la paroisse</a>
-      <p class="copy">© {{ date('Y') }} Paroisse Saint Michel Archange de la BAE</p>
+      <a href="{{ route('home') }}" class="back-link"><i class="bi bi-arrow-left"></i> Retour au site du sanctuaire</a>
+      <p class="copy">© {{ date('Y') }} Sanctuaire Marial Notre-Dame de Cana Sassako</p>
     </div>
   </main>
 

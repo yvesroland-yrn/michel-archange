@@ -69,7 +69,7 @@ class CatechisteController extends CrudController {
         $classe = ClasseCate::with('anneeCatechetique')->findOrFail($classeId);
         $catechistes = $classe->catechistes;
 
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
 
@@ -95,7 +95,7 @@ class CatechisteController extends CrudController {
             ->orderBy('code')
             ->get();
 
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
 
@@ -118,7 +118,7 @@ class CatechisteController extends CrudController {
             ->orderBy('nom')
             ->get();
 
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
 

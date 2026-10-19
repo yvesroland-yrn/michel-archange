@@ -200,7 +200,7 @@
 <div class="document-container">
   <div class="document-header">
     <div class="logo">
-      <img src="{{ public_path('images/saint.jpg') }}" alt="Saint Michel Archange">
+      <img src="{{ asset('images/logo-sanctuaire.jpg') }}" alt="Saint Michel Archange">
     </div>
     <p class="parish-name">Paroisse Saint Michel Archange de la BAE</p>
     <h1 class="document-title">Intentions de Messe</h1>

@@ -68,7 +68,7 @@ class FinanceController extends Controller {
         return back()->with('ok', 'Dépense enregistrée.');
     }
     public function recu(Recette $recette) {
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
         

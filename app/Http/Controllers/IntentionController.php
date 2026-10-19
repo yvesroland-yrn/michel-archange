@@ -55,7 +55,7 @@ class IntentionController extends CrudController {
     }
 
     public function recu(Intention $intention) {
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
 
@@ -196,7 +196,7 @@ class IntentionController extends CrudController {
 
         $intentions = $query->orderBy('created_at', 'desc')->get();
 
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
 

@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('titre', 'Annonces - Paroisse Saint Michel Archange de la BAE')
+@section('titre', 'Annonces - Sanctuaire Marial Notre-Dame de Cana Sassako')
 @section('content')
 
 @php
@@ -70,7 +70,7 @@
     inset:0 0 0 45%;
     z-index:1;
     background-size:cover;
-    background-position:center center;
+    background-position:center 30%;
   }
   .hero-left::after{
     content:"";
@@ -132,14 +132,14 @@
   <div class="hero-left">
     <div class="hero-content">
       <h1>Nos Annonces </h1>
-      <p class="sub">Paroisse Saint Michel Archange BAE</p>
+      <p class="sub">Sanctuaire Marial Notre-Dame de Cana Sassako</p>
       <span class="hero-line"></span>
       <p class="verse">
-        « Saint Michel Archange, défendez-nous dans le combat. »
+        « Sanctuaire Marial Notre-Dame de Cana Sassako. »
       </p>
     </div>
   </div>
-  <div class="hero-right" style="background-image:url('{{ asset('images/banniere.jpg') }}')"></div>
+  <div class="hero-right" style="background-image:url('{{ asset('images/banniere-sanctuaire.png') }}')"></div>
 </header>
 
 <section id="annonces" class="block">

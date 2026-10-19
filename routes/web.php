@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\{AuthController, HomeController, DashboardController, FideleController, BaptemeController, SacrementController, CebController,
-    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController, DenierCulteController, CasuelController};
+    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController, DenierCulteController, CasuelController, StockController, StockReportController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'accueil'])->name('home');
@@ -92,6 +92,16 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('permission:annonces')->group(function () {
         Route::resource('annonces', AnnonceController::class)->except('show');
+    });
+
+    Route::middleware('permission:stock')->group(function () {
+        Route::get('stock/dashboard', [StockController::class, 'dashboard'])->name('stock.dashboard');
+        Route::get('stock/rapport', [StockReportController::class, 'index'])->name('stock.rapport');
+        Route::get('stock/rapport/pdf', [StockReportController::class, 'exportPdf'])->name('stock.rapport.pdf');
+        Route::get('stock/produits/pdf', [StockReportController::class, 'exportProduitsPdf'])->name('stock.produits.pdf');
+        Route::post('stock/{produit}/add', [StockController::class, 'addStock'])->name('stock.add');
+        Route::post('stock/{produit}/remove', [StockController::class, 'removeStock'])->name('stock.remove');
+        Route::resource('stock', StockController::class)->except('show');
     });
 
     Route::middleware('permission:classes_cate')->group(function () {

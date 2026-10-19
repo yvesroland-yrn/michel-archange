@@ -120,7 +120,7 @@ class CasuelController extends Controller {
     }
     
     public function recu(Casuel $casuel) {
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
 
@@ -156,8 +156,8 @@ class CasuelController extends Controller {
         
         $casuels = $query->orderBy('date_paiement')->get();
         $total = $casuels->sum('montant');
-        
-        $logoPath = public_path('images/saint.jpg');
+
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
         

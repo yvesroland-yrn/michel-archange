@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Paroisse Saint Michel Archange de la BAE</title>
-<meta name="description" content="Site de la paroisse Saint Michel Archange de la BAE : horaires des messes, annonces, rendez-vous et contact.">
+<title>Sanctuaire Marial Notre-Dame de Cana Sassako</title>
+<meta name="description" content="Site du Sanctuaire Marial Notre-Dame de Cana Sassako : horaires des messes, annonces, rendez-vous et contact.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,9 +14,9 @@
 
 <style>
   :root{
-    --nuit:        #0B1B3A;
-    --nuit-deep:   #07122B;
-    --archange:    #2748B8;
+    --nuit:        #0878D1;
+    --nuit-deep:   #065BA8;
+    --archange:    #0878D1;
     --or:          #D4A937;
     --or-clair:    #F2D98A;
     --ivoire:      #FAF7F0;
@@ -27,9 +27,9 @@
     --flamme:      #C8322B;
     --emeraude:    #1F8A70;
 
-    --grad-ciel: linear-gradient(135deg, #07122B 0%, #0B1B3A 40%, #2748B8 100%);
+    --grad-ciel: linear-gradient(135deg, #065BA8 0%, #0878D1 40%, #0A8CE8 100%);
     --grad-or:   linear-gradient(135deg, #B8891F 0%, #F2D98A 50%, #D4A937 100%);
-    --ombre:     0 10px 30px -12px rgba(11, 27, 58, .25);
+    --ombre:     0 10px 30px -12px rgba(8, 120, 209, .25);
   }
   html{scroll-behavior:smooth;scroll-padding-top:76px}
   body{font-family:'Inter',system-ui,sans-serif;color:var(--encre);background:var(--ivoire);line-height:1.65}
@@ -55,9 +55,19 @@
   /* ---------- Accueil ---------- */
   .hero{
     position:relative;color:#fff;text-align:center;padding:7rem 1rem 6rem;
-    background: var(--grad-ciel);
+    background: linear-gradient(135deg, rgba(13,33,55,0.85) 0%, rgba(30,58,95,0.75) 40%, rgba(46,90,140,0.7) 100%),
+                url('{{ asset('images/banniere-sanctuaire.png') }}') center 25%/cover no-repeat;
+    background-attachment: scroll;
+    min-height: 600px;
   }
-  .hero .crest{width:116px;height:116px;border-radius:50%;border:4px solid var(--or);object-fit:cover;box-shadow:0 0 0 8px rgba(212,169,55,.15)}
+  @media (min-width: 1200px) {
+    .hero {
+      padding: 8rem 1rem 7rem;
+      min-height: 700px;
+      background-position: center 30%;
+    }
+  }
+  .hero .crest{width:120px;height:120px;border-radius:50%;border:4px solid var(--or);object-fit:contain;box-shadow:0 0 0 8px rgba(212,169,55,.15);background:#fff;padding:8px}
   .hero h1{font-size:clamp(2rem,5.5vw,3.6rem);font-weight:700;margin:1.4rem 0 .3rem}
   .hero .sub{font-size:1.15rem;color:var(--or-clair);margin-bottom:1.2rem}
   .hero .verse{max-width:36rem;margin:0 auto 2rem;color:var(--or-clair);font-style:italic}
@@ -278,8 +288,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark site-nav sticky-top">
   <div class="container" style="max-width:1100px">
     <a class="navbar-brand" href="#accueil">
-      <img src="{{ asset('images/saint-michel-avatar.jpg') }}" alt="Saint Michel Archange">
-      <span class="brand-name">Saint Michel Archange<small>Paroisse de la BAE</small></span>
+      <img src="{{ asset('images/logo-sanctuaire.jpg') }}" alt="Sanctuaire Notre-Dame de Cana">
+      <span class="brand-name">Sanctuaire Marial<small>Notre-Dame de Cana Sassako</small></span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Ouvrir le menu">
       <span class="navbar-toggler-icon"></span>
@@ -301,10 +311,10 @@
 {{-- ================= ACCUEIL ================= --}}
 <header id="accueil" class="hero">
   <div class="container" style="max-width:1100px">
-    <img src="{{ asset('images/saint-michel-avatar.jpg') }}" class="crest" alt="Saint Michel Archange">
-    <h1>Paroisse Saint Michel Archange</h1>
-    <p class="sub">de la BAE</p>
-    <p class="verse">« Saint Michel Archange, défendez-nous dans le combat. » <b>Une communauté qui prie, se rassemble et sert.</b></p>
+    <img src="{{ asset('images/logo-sanctuaire.jpg') }}" class="crest" alt="Sanctuaire Notre-Dame de Cana">
+    <h1>Sanctuaire Marial Notre-Dame de Cana</h1>
+    <p class="sub">Sassako</p>
+    <p class="verse">« Notre-Dame de Cana, intercédez pour nous. » <b>Un lieu de prière, de grâce et de conversion.</b></p>
     <div class="hero-actions">
       <a href="#annonces" class="btn btn-gold btn-lg px-4"><i class="bi bi-megaphone me-2"></i>Voir les annonces</a>
       <a href="#contact" class="btn btn-outline-light-soft btn-lg px-4"><i class="bi bi-envelope me-2"></i>Nous contacter</a>
@@ -328,14 +338,14 @@
 {{-- ================= À PROPOS ================= --}}
 <section id="apropos" class="block">
   <div class="container" style="max-width:1100px">
-    <h2 class="section-title">Paroisse Saint Michel Archnage De La BAE</h2>
-    <p class="section-intro">Découvrez notre communauté à travers le mot de notre curé et la présentation de notre clergé.</p>
+    <h2 class="section-title">Sanctuaire Marial Notre-Dame de Cana</h2>
+    <p class="section-intro">Découvrez notre sanctuaire à travers le mot de notre curé et la présentation de notre clergé.</p>
     
     <!-- Mot du curé -->
     <div class="card border-0 shadow-sm mb-5" style="border-radius: 1rem; overflow: hidden;">
       <div class="row g-0">
         <div class="col-lg-4">
-          <img src="{{ asset('images/saint-michel-avatar.jpg') }}" class="h-100 w-100 object-fit-cover" style="min-height: 300px;" alt="Le curé de la paroisse">
+          <img src="{{ asset('images/cure-sanctuaire.png') }}" class="h-100 w-100 object-fit-cover" style="min-height: 300px; object-position: center 25%;" alt="Le curé du sanctuaire">
         </div>
         <div class="col-lg-8">
           <div class="card-body p-4 p-lg-5">
@@ -346,9 +356,9 @@
               <span class="badge" style="background: var(--or); color: var(--nuit);">Curé de la paroisse</span>
             </div>
             <p class="fst-italic text-muted mb-3">
-              « Chers paroissiens, que la paix du Christ soit avec vous. Notre paroisse est une famille où chacun trouve sa place. 
+              « Chers fidèles, que la paix du Christ soit avec vous. Notre sanctuaire est un lieu de grâce où chacun trouve sa place. 
               Ensemble, nous vivons notre foi à travers la prière, les sacrements et le service fraternel. 
-              Saint Michel Archange, notre patron, nous inspire à combattre le mal et à servir Dieu avec courage. »
+              Notre-Dame de Cana, notre patronne, nous inspire à la conversion et à servir Dieu avec amour. »
             </p>
             <p class="mb-0">
               Bienvenue dans notre communauté. Que votre visite sur ce site soit une bénédiction pour vous.
@@ -356,7 +366,7 @@
             <div class="mt-4 pt-3 border-top">
               <strong style="font-family: 'Cinzel', serif;">Père [Nom du Curé]</strong>
               <br>
-              <small class="text-muted">Curé de la Paroisse Saint Michel Archange de la BAE</small>
+              <small class="text-muted">Curé du Sanctuaire Marial Notre-Dame de Cana Sassako</small>
             </div>
           </div>
         </div>
@@ -379,7 +389,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="text-center">
               <div class="mb-3">
-                <img src="{{ asset('images/saint-michel-avatar.jpg') }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--or);" alt="Curé">
+                <img src="{{ asset('images/cure-sanctuaire.png') }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; object-position: center 30%; border: 3px solid var(--or);" alt="Curé">
               </div>
               <h5 class="mb-1" style="font-family: 'Cinzel', serif;">Père [Nom]</h5>
               <p class="text-muted small mb-2">Curé</p>
@@ -391,7 +401,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="text-center">
               <div class="mb-3">
-                <img src="{{ asset('images/saint-michel-avatar.jpg') }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--gold);" alt="Vicaire">
+                <img src="{{ asset('images/cure-sanctuaire.png') }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; object-position: center 30%; border: 3px solid var(--gold);" alt="Vicaire">
               </div>
               <h5 class="mb-1" style="font-family: 'Cinzel', serif;">Père [Nom]</h5>
               <p class="text-muted small mb-2">Vicaire</p>
@@ -403,7 +413,7 @@
           <div class="col-md-6 col-lg-4">
             <div class="text-center">
               <div class="mb-3">
-                <img src="{{ asset('images/saint-michel-avatar.jpg') }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--gold);" alt="Diacre">
+                <img src="{{ asset('images/cure-sanctuaire.png') }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; object-position: center 30%; border: 3px solid var(--gold);" alt="Diacre">
               </div>
               <h5 class="mb-1" style="font-family: 'Cinzel', serif;">Diacre [Nom]</h5>
               <p class="text-muted small mb-2">Diacre permanent</p>

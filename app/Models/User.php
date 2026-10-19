@@ -31,6 +31,7 @@ class User extends Authenticatable
         'classes_cate' => 'Classes de catéchèse',
         'catechumenes' => 'Catéchumènes',
         'finances' => 'Finances',
+        'stock' => 'Gestion du stock',
         'users' => 'Gestion des utilisateurs',
         'contacts' => 'Contact nous',
     ];

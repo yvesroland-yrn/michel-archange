@@ -42,8 +42,8 @@
 </head>
 <body>
 <div class="c">
-  <img src="{{ public_path('images/saint.jpg') }}" class="logo" alt="Saint Michel Archange">
-  <strong>PAROISSE SAINT MICHEL ARCHANGE DE LA BAE</strong>
+  <img src="{{ public_path('images/logo-sanctuaire.jpg') }}" class="logo" alt="Sanctuaire Notre-Dame de Cana">
+  <strong>SANCTUAIRE MARIAN NOTRE-DAME DE CANA SASSAKO</strong>
   <h1>REÇU CASUEL - {{ $type }}</h1>
 </div>
 

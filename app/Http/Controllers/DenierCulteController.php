@@ -68,7 +68,7 @@ class DenierCulteController extends Controller {
     }
     
     public function recu(DenierCulte $denier) {
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
         
@@ -98,8 +98,8 @@ class DenierCulteController extends Controller {
         
         $deniers = $query->orderBy('date_paiement')->get();
         $total = $deniers->sum('montant');
-        
-        $logoPath = public_path('images/saint.jpg');
+
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
         

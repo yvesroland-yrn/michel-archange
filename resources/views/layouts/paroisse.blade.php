@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="{{ asset('images/saint.jpg') }}" type="image/jpeg">
+<link rel="icon" href="{{ asset('images/logo-sanctuaire.jpg') }}" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="{{ asset('css/paroisse.css') }}" rel="stylesheet">
-<title>@yield('titre', 'Paroisse Saint Michel Archange')</title></head>
+<title>@yield('titre', 'Sanctuaire Marial Notre-Dame de Cana')</title></head>
 <body>
 @php
   $user = auth()->user(); $role = $user->role;
@@ -16,8 +16,8 @@
 @endphp
 <div class="side-overlay" id="ov" onclick="toggleSide()"></div>
 <aside class="sidebar" id="side">
-  <a class="brand" href="{{ route('dashboard') }}"><img src="{{ asset('images/michel.jfif') }}" alt="">
-    <div><div class="brand-title">Saint Michel<br>Archange</div><small>Paroisse de la BAE</small></div></a>
+  <a class="brand" href="{{ route('dashboard') }}"><img src="{{ asset('images/logo-sanctuaire.jpg') }}" alt="">
+    <div><div class="brand-title">Sanctuaire Marial<br>Notre-Dame de Cana</div><small>Sassako</small></div></a>
   <nav class="side-nav">
     <div class="side-label">Principal</div>
     <a class="side-link {{ $a('dashboard') }}" href="{{ route('dashboard') }}"><i class="bi bi-speedometer2"></i>Tableau de bord</a>
@@ -82,6 +82,9 @@
     @endif
     @if($can('annonces'))
     <a class="side-link {{ $a('annonces.*') }}" href="{{ route('annonces.index') }}"><i class="bi bi-megaphone-fill"></i>Annonces</a>
+    @endif
+    @if($can('stock'))
+    <a class="side-link {{ $a('stock.*') }}" href="{{ route('stock.dashboard') }}"><i class="bi bi-box-seam-fill"></i>Gestion du stock</a>
     @endif
     @endif
 

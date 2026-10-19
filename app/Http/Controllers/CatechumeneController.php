@@ -100,7 +100,7 @@ class CatechumeneController extends CrudController {
     }
 
     public function recu(Catechumene $catechumene) {
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
 
@@ -135,7 +135,7 @@ class CatechumeneController extends CrudController {
             ->orderBy('created_at')
             ->get();
 
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
 
@@ -161,7 +161,7 @@ class CatechumeneController extends CrudController {
             ->orderBy('code')
             ->get();
 
-        $logoPath = public_path('images/saint.jpg');
+        $logoPath = public_path('images/logo-sanctuaire.jpg');
         $logoData = base64_encode(file_get_contents($logoPath));
         $logoSrc = 'data:image/jpeg;base64,' . $logoData;
 

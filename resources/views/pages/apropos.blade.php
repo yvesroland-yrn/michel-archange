@@ -1,9 +1,9 @@
 @extends('layouts.public')
-@section('titre', 'À propos - Paroisse Saint Michel Archange de la BAE')
+@section('titre', 'À propos - Sanctuaire Marial Notre-Dame de Cana Sassako')
 @section('content')
 
 @php
-  $avatar = asset('images/michel.jfif');
+  $avatar = asset('images/cure-sanctuaire.png');
 @endphp
 
 {{-- ================= HERO BANNER ================= --}}
@@ -11,14 +11,14 @@
   <div class="hero-left">
     <div class="hero-content">
       <h1>A Propos</h1>
-      <p class="sub">Paroisse Saint Michel Archange BAE</p>
+      <p class="sub">Sanctuaire Marial Notre-Dame de Cana Sassako</p>
       <span class="hero-line"></span>
       <p class="verse">
-        « Saint Michel Archange, défendez-nous dans le combat. »
+        « Notre-Dame de Cana, intercédez pour nous. »
       </p>
     </div>
   </div>
-  <div class="hero-right" style="background-image:url('{{ asset('images/banniere.jpg') }}')"></div>
+  <div class="hero-right" style="background-image:url('{{ asset('images/banniere-sanctuaire.png') }}')"></div>
 </header>
 
 <style>
@@ -84,7 +84,7 @@
     inset:0 0 0 45%;
     z-index:1;
     background-size:cover;
-    background-position:center center;
+    background-position:center 30%;
   }
   .hero-left::after{
     content:"";
@@ -156,7 +156,7 @@
 
 {{-- ============ En-tête + navigation interne ============ --}}
 <header class="container" style="max-width:1100px; padding-top:3rem;">
-  <h1 class="section-title mb-2">Paroisse Saint Michel Archnage De La BAE</h1>
+  <h1 class="section-title mb-2">Sanctuaire Marial Notre-Dame de Cana</h1>
   <p class="section-intro mb-4">Le mot de notre curé, ceux qui nous guident et les personnes à contacter.</p>
 </header>
 
@@ -167,20 +167,20 @@
     <div class="row g-5 align-items-center">
       <div class="col-md-5 col-lg-4">
         <div class="ap-cure-photo">
-          <img src="{{ asset('images/cure.jpeg') }}" alt="Le curé de la paroisse">
+          <img src="{{ asset('images/cure-sanctuaire.png') }}" style="object-position: center 25%;" alt="Le curé du sanctuaire">
         </div>
       </div>
       <div class="col-md-7 col-lg-8">
         <h2 class="ap-title"><i class="bi bi-quote"></i>Mot du curé</h2>
         <blockquote class="ap-quote mt-4 mb-4">
-          Chers paroissiens, que la paix du Christ soit avec vous. Notre paroisse est une famille où chacun trouve sa place.
+          Chers fidèles, que la paix du Christ soit avec vous. Notre sanctuaire est un lieu de grâce où chacun trouve sa place.
           Ensemble, nous vivons notre foi à travers la prière, les sacrements et le service fraternel.
-          Saint Michel Archange, notre patron, nous inspire à combattre le mal et à servir Dieu avec courage.
+          Notre-Dame de Cana, notre patronne, nous inspire à la conversion et à servir Dieu avec amour.
         </blockquote>
         <p>Bienvenue dans notre communauté. Que votre visite sur ce site soit une bénédiction pour vous.</p>
         <p class="mb-0">
-          <strong style="font-family:'Cinzel',serif;">Père Bienvenu DJEA</strong><br>
-          <small class="text-muted">Curé de la paroisse Saint Michel Archange de la BAE</small>
+          <strong style="font-family:'Cinzel',serif;">Père Daniel Amouakon</strong><br>
+          <small class="text-muted">Curé du Sanctuaire Marial Notre-Dame de Cana Sassako</small>
         </p>
       </div>
     </div>
@@ -242,7 +242,7 @@
     <div class="row g-5">
       <div class="col-lg-4">
         <h2 class="ap-title"><i class="bi bi-person-workspace"></i>Conseil paroissial</h2>
-        <p class="ap-lead mb-0">Il assiste le curé dans la gestion administrative et pastorale de la paroisse.</p>
+        <p class="ap-lead mb-0">Il assiste le curé dans la gestion administrative et pastorale du sanctuaire.</p>
       </div>
       <div class="col-lg-8">
         <div class="card border-0 shadow-sm" style="border-radius:1rem;">

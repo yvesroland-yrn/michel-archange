@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>@yield('titre', 'Paroisse Saint Michel Archange de la BAE')</title>
-<meta name="description" content="Site de la paroisse Saint Michel Archange de la BAE : horaires des messes, annonces, rendez-vous et contact.">
-<link rel="icon" href="{{ asset('images/saint.jpg') }}" type="image/jpeg">
+<title>@yield('titre', 'Sanctuaire Marial Notre-Dame de Cana Sassako')</title>
+<meta name="description" content="Site du Sanctuaire Marial Notre-Dame de Cana Sassako : horaires des messes, annonces, rendez-vous et contact.">
+<link rel="icon" href="{{ asset('images/logo-sanctuaire.jpg') }}" type="image/jpeg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,9 +15,9 @@
 
 <style>
   :root{
-    --nuit:        #0B1B3A;
-    --nuit-deep:   #07122B;
-    --archange:    #2748B8;
+    --nuit:        #0878D1;
+    --nuit-deep:   #065BA8;
+    --archange:    #0878D1;
     --or:          #D4A937;
     --or-clair:    #F2D98A;
     --ivoire:      #FAF7F0;
@@ -28,9 +28,9 @@
     --flamme:      #C8322B;
     --emeraude:    #1F8A70;
 
-    --grad-ciel: linear-gradient(135deg, #07122B 0%, #0B1B3A 40%, #2748B8 100%);
+    --grad-ciel: linear-gradient(135deg, #065BA8 0%, #0878D1 40%, #0A8CE8 100%);
     --grad-or:   linear-gradient(135deg, #B8891F 0%, #F2D98A 50%, #D4A937 100%);
-    --ombre:     0 10px 30px -12px rgba(11, 27, 58, .25);
+    --ombre:     0 10px 30px -12px rgba(8, 120, 209, .25);
   }
   html{scroll-behavior:smooth;scroll-padding-top:76px}
   body{font-family:'Inter',system-ui,sans-serif;color:var(--encre);background:var(--ivoire);line-height:1.65}
@@ -216,23 +216,23 @@
     /* Barre de navigation mobile fixe en bas - Dock arrondi moderne */
     .mobile-nav-dock {
       position: fixed;
-      bottom: 1.5rem;
+      bottom: 1rem;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 247, 240, 0.95) 100%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 247, 240, 0.98) 100%);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(212, 169, 55, 0.2);
-      padding: 0.8rem 1.2rem;
+      border: 1px solid rgba(212, 169, 55, 0.15);
+      padding: 0.5rem 1.5rem;
       z-index: 1000;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      box-shadow: 0 8px 32px rgba(11, 27, 58, 0.15), 0 0 0 1px rgba(212, 169, 55, 0.1);
-      border-radius: 28px;
+      box-shadow: 0 4px 20px rgba(11, 27, 58, 0.1), 0 0 0 1px rgba(212, 169, 55, 0.08);
+      border-radius: 20px;
       gap: 0.5rem;
       animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      max-width: 95%;
+      max-width: 98%;
       overflow: hidden;
     }
 
@@ -257,14 +257,14 @@
       padding: 0;
       border-radius: 50%;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      width: 64px;
-      height: 64px;
+      width: 60px;
+      height: 60px;
       position: relative;
       flex-shrink: 0;
     }
 
     .mobile-nav-item i {
-      font-size: 1.7rem;
+      font-size: 1.5rem;
       color: var(--brume);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -275,26 +275,26 @@
     }
 
     .mobile-nav-item > div + span {
-      margin-top: 0.2rem;
+      margin-top: 0.1rem;
     }
 
     .mobile-nav-item > i + span {
-      margin-top: 0.2rem;
+      margin-top: 0.1rem;
     }
 
     .mobile-nav-item span {
-      font-size: 0.65rem;
+      font-size: 0.55rem;
       font-weight: 600;
       color: var(--brume);
       text-transform: uppercase;
-      letter-spacing: 0.2px;
+      letter-spacing: 0.1px;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .mobile-nav-item.active {
       background: linear-gradient(135deg, var(--or) 0%, var(--or-clair) 100%);
-      box-shadow: 0 4px 12px rgba(212, 169, 55, 0.4);
-      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(212, 169, 55, 0.35);
+      transform: translateY(-1px);
     }
 
     .mobile-nav-item.active i,
@@ -303,8 +303,8 @@
     }
 
     .mobile-nav-item:hover {
-      background: rgba(212, 169, 55, 0.1);
-      transform: translateY(-1px);
+      background: rgba(212, 169, 55, 0.08);
+      transform: translateY(-0.5px);
     }
 
     .mobile-nav-item:hover i {
@@ -356,7 +356,7 @@
 
     /* Ajuster le padding du contenu pour éviter que le dock ne cache le contenu */
     body {
-      padding-bottom: 120px;
+      padding-bottom: 90px;
     }
   }
 
@@ -576,10 +576,10 @@
 <nav class="navbar navbar-expand-lg navbar-light site-nav sticky-top">
   <div class="container" style="max-width:1100px">
     <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
-      <img src="{{ asset('images/michel.jfif') }}" alt="Saint Michel Archange" class="brand-logo">
+      <img src="{{ asset('images/logo-sanctuaire.jpg') }}" alt="Saint Michel Archange" class="brand-logo">
       <span class="brand-name">
-        SAINT MICHEL ARCHANGE
-        <small>Paroisse de la BAE</small>
+       Sanctuaire Notre Dame De Cana
+        <small>Sassako Benini</small>
       </span>
     </a>
 
@@ -643,9 +643,6 @@
           <input type="email" placeholder="Votre email">
           <button type="button">S'ABONNER</button>
         </div>
-        <div class="mt-3">
-          <small class="text-muted">Diocèse de la BAE</small>
-        </div>
       </div>
 
       <!-- Liens rapides -->
@@ -689,7 +686,7 @@
     <div class="footer-bottom">
       <div class="row align-items-center">
         <div class="col-md-6">
-          <p class="mb-1">© {{ now()->year }} Paroisse Saint Michel Archange de la BAE. Tous droits réservés.</p>
+          <p class="mb-1">© {{ now()->year }} Sanctuaire Marial Notre Dame De Cana. Tous droits réservés.</p>
           <div class="developer-credit">
             <span>Développé par</span>
             <a href="https://wa.me/2250715085142" target="_blank" rel="noopener noreferrer" aria-label="Contacter le développeur sur WhatsApp" class="author-logo-wrap">

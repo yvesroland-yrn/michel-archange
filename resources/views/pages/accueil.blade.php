@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('titre', 'Accueil - Paroisse Saint Michel Archange de la BAE')
+@section('titre', 'Accueil - Sanctuaire Marial Notre-Dame de Cana Sassako')
 @section('content')
 <style>
   #apropos{background:var(--ivoire)}
@@ -75,7 +75,14 @@
       inset:0 0 0 45%;
       z-index:1;
       background-size:cover;
-      background-position:center center;
+      background-position:center 30%;
+      background-repeat:no-repeat;
+    }
+    @media (min-width: 1400px) {
+      .hero-right {
+        background-size: cover;
+        background-position: center 35%;
+      }
     }
 
     /* Coupe diagonale : le bleu nuit « mord » sur l'image */
@@ -96,6 +103,12 @@
       .hero-left::after{ display:none; }
       .hero-right{ position:relative; inset:auto; height:220px; }
       .hero-content{ max-width:100%; }
+    }
+    @media (min-width: 1200px) {
+      .hero-split {
+        min-height: 700px;
+        max-height: 800px;
+      }
     }
 
     /* Section Mot du curé */
@@ -144,16 +157,16 @@
 <header id="accueil" class="hero-split">
   <div class="hero-left">
     <div class="hero-content">  
-      <h1>Paroisse Saint Michel Archange</h1>
-      <p class="sub">de la BAE</p>
+      <h1>Sanctuaire Marial Notre-Dame de Cana</h1>
+      <p class="sub">Sassako</p>
       <span class="hero-line"></span>
       <p class="verse">
-        «Saint Michel Archange , qui est comme Dieu.
+        «Notre-Dame de Cana, intercédez pour nous.
       </p>
     </div>
   </div>
 
-  <div class="hero-right" style="background-image:url('{{ asset('images/1.png') }}')"></div> 
+  <div class="hero-right" style="background-image:url('{{ asset('images/banniere-sanctuaire.png') }}')"></div> 
 </header>
 
 
@@ -176,8 +189,8 @@
 {{-- ================= À PROPOS ================= --}}
 <section id="apropos" class="block">
   <div class="container" style="max-width:1100px">
-    <h2 class="section-title">Paroisse Saint Michel Archnage De La BAE</h2>
-    <p class="section-intro">Découvrez notre communauté à travers le mot de notre curé et la présentation de notre clergé.</p>
+    <h2 class="section-title">Sanctuaire Marial Notre-Dame de Cana</h2>
+    <p class="section-intro">Découvrez notre sanctuaire à travers le mot de notre curé et la présentation de notre clergé.</p>
 
 
     <!-- Présentation du clergé -->
@@ -199,7 +212,7 @@
                 @if($membre->photo)
                 <img src="{{ asset('storage/' . $membre->photo) }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--or);" alt="{{ $membre->nom_complet }}">
                 @else
-                <img src="{{ asset('images/michel.jfif') }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid var(--or);" alt="{{ $membre->nom_complet }}">
+                <img src="{{ asset('images/cure-sanctuaire.png') }}" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; object-position: center 30%; border: 3px solid var(--or);" alt="{{ $membre->nom_complet }}">
                 @endif
               </div>
               <h5 class="mb-1" style="font-family: 'Cinzel', serif;">Père {{ $membre->nom_complet }}</h5>
@@ -235,7 +248,7 @@
                   @if($membre->photo)
                   <img src="{{ asset('storage/' . $membre->photo) }}" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover; border: 2px solid var(--or);" alt="{{ $membre->nom_complet }}">
                   @else
-                  <img src="{{ asset('images/michel.jfif') }}" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover; border: 2px solid var(--or);" alt="{{ $membre->nom_complet }}">
+                  <img src="{{ asset('images/cure-sanctuaire.png') }}" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover; object-position: center 30%; border: 2px solid var(--or);" alt="{{ $membre->nom_complet }}">
                   @endif
                 </div>
                 <h6 class="mb-1" style="font-family: 'Cinzel', serif;">{{ $membre->nom_complet }}</h6>
@@ -277,7 +290,7 @@
                     @if($mouvement->photo)
                     <img src="{{ asset('storage/' . $mouvement->photo) }}" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover; border: 2px solid var(--or);" alt="{{ $mouvement->nom }}">
                     @else
-                    <img src="{{ asset('images/michel.jfif') }}" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover; border: 2px solid var(--or);" alt="{{ $mouvement->nom }}">
+                    <img src="{{ asset('images/cure-sanctuaire.png') }}" class="rounded-circle" style="width: 60px; height: 60px; object-fit: cover; object-position: center 30%; border: 2px solid var(--or);" alt="{{ $mouvement->nom }}">
                     @endif
                   </div>
                   <div class="flex-grow-1">
@@ -308,7 +321,7 @@
 <section id="annonces" class="block">
   <div class="container" style="max-width:1100px">
     <h2 class="section-title">Annonces et rendez-vous</h2>
-    <p class="section-intro">Les dernières nouvelles de la paroisse et les prochaines dates à retenir.</p>
+    <p class="section-intro">Les dernières nouvelles du sanctuaire et les prochaines dates à retenir.</p>
 
     <div class="row g-5">
 

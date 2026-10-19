@@ -3,7 +3,7 @@
 <div class="welcome mb-4">
   <div class="motto"></div>
   <h2>Tableau de bord {{ now()->year }}</h2>
-  <p>Vue d'ensemble de la vie de la paroisse Saint Michel Archange de la BAE.</p>
+  <p>Vue d'ensemble de la vie du Sanctuaire Marial Notre-Dame de Cana Sassako.</p>
 </div>
 
 @php

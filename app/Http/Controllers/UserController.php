@@ -11,7 +11,7 @@ class UserController extends CrudController {
             'name' => ['Nom complet', 'text', true],
             'email' => ['E-mail', 'email', true],
             'role' => ['Rôle', 'select', true, self::ROLES],
-            'permissions' => ['Rubriques accessibles (laisser vide pour aucune)', 'checkbox', false, User::RUBRIQUES],
+            'permissions' => ['Rubriques accessibles (cocher pour autoriser)', 'checkbox', false, User::RUBRIQUES],
             'password' => ['Mot de passe (laisser vide pour ne pas changer)', 'password'],
         ];
     }
@@ -20,20 +20,18 @@ class UserController extends CrudController {
             'Nom' => 'name',
             'E-mail' => 'email',
             'Rôle' => fn ($u) => self::ROLES[$u->role] ?? $u->role,
-            'Permissions' => fn ($u) => $u->role === 'admin' ? 'Tout accès' : ($u->permissions ? implode(', ', $u->permissions) : 'Aucune'),
+            'Permissions' => fn ($u) => $u->role === 'admin' ? 'Tout accès' : ($u->permissions ? implode(', ', array_map(fn($p) => User::RUBRIQUES[$p] ?? $p, $u->permissions)) : 'Aucune'),
         ];
     }
     protected function extraRules($item = null): array {
         return [
             'email' => 'required|email|unique:users,email,'.($item?->id ?? 'NULL'),
             'password' => ($item ? 'nullable' : 'required').'|string|min:8',
-            'permissions' => 'nullable|array',
-            'permissions.*' => 'string|in:'.implode(',', array_keys(User::RUBRIQUES)),
         ];
     }
     protected function prepare(array $d, $item = null): array {
         if (empty($d['password'])) unset($d['password']);
-        if (isset($d['permissions']) && empty($d['permissions'])) {
+        if (isset($d['permissions']) && (empty($d['permissions']) || $d['permissions'] === null)) {
             $d['permissions'] = null;
         }
         return $d;
