@@ -1,9 +1,10 @@
 <?php
 use App\Http\Controllers\{AuthController, HomeController, DashboardController, FideleController, BaptemeController, SacrementController, CebController,
-    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController, DenierCulteController, CasuelController, StockController, StockReportController};
+    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController, DenierCulteController, CasuelController, StockController, StockReportController, BudgetController, ReservationController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'accueil'])->name('home');
+Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
 Route::get('apropos', [PagesController::class, 'apropos'])->name('apropos');
 Route::get('actualites', [PagesController::class, 'annonces'])->name('annonces');
 Route::get('contact', [PagesController::class, 'contact'])->name('contact');
@@ -148,6 +149,22 @@ Route::middleware('auth')->group(function () {
         Route::get('bilan', [FinanceController::class, 'bilan'])->name('bilan');
     });
 
+    Route::middleware('permission:finances')->prefix('budget')->name('budget.')->group(function () {
+        Route::get('/', [BudgetController::class, 'index'])->name('index');
+        Route::get('/tableau-de-bord', [BudgetController::class, 'tableauDeBord'])->name('tableau-de-bord');
+        Route::get('/liste', [BudgetController::class, 'liste'])->name('liste');
+        Route::post('/', [BudgetController::class, 'store'])->name('store');
+        Route::post('/ligne', [BudgetController::class, 'storeLigne'])->name('ligne.store');
+        Route::delete('/ligne/{id}', [BudgetController::class, 'destroyLigne'])->name('ligne.destroy');
+        Route::put('/ligne/{id}/toggle-realise', [BudgetController::class, 'toggleRealiseLigne'])->name('ligne.toggle-realise');
+        Route::get('{annee}', [BudgetController::class, 'show'])->name('show');
+        Route::put('{annee}', [BudgetController::class, 'update'])->name('update');
+        Route::delete('{annee}', [BudgetController::class, 'destroy'])->name('destroy');
+        Route::get('{annee}/export-pdf', [BudgetController::class, 'exportPdf'])->name('export-pdf');
+        Route::get('{annee}/export-word', [BudgetController::class, 'exportWord'])->name('export-word');
+        Route::put('{annee}/notes', [BudgetController::class, 'updateNotes'])->name('update-notes');
+    });
+
     Route::middleware('permission:users')->group(function () {
         Route::resource('users', UserController::class)->except('show');
     });
@@ -158,4 +175,10 @@ Route::middleware('auth')->group(function () {
         Route::post('contacts/{contact}/marquer-lu', [ContactController::class, 'marquerLu'])->name('contacts.marquer-lu');
         Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
     });
+
+    Route::get('reservations', [ReservationController::class, 'index'])->name('reservation.index');
+    Route::put('reservations/{id}/statut', [ReservationController::class, 'updateStatut'])->name('reservation.update-statut');
+    Route::delete('reservations/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+    Route::get('reservations/export-pdf', [ReservationController::class, 'exportPdf'])->name('reservation.export-pdf');
+    Route::get('reservations/export-word', [ReservationController::class, 'exportWord'])->name('reservation.export-word');
 });

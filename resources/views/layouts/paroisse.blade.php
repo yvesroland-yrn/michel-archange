@@ -97,6 +97,13 @@
     <a class="side-link {{ $a('finance.quetes') }}" href="{{ route('finance.quetes') }}"><i class="bi bi-basket"></i>Quêtes</a>
     @endif
 
+    @if($can('finances'))
+    <div class="side-label">Budget</div>
+    <a class="side-link {{ $a('budget.tableau-de-bord') }}" href="{{ route('budget.tableau-de-bord') }}"><i class="bi bi-speedometer2"></i>Tableau de bord Budget du sanctuaire</a>
+    <a class="side-link {{ $a('budget.liste') }}" href="{{ route('budget.liste') }}"><i class="bi bi-list-ul"></i>Liste des budgets</a>
+    <a class="side-link {{ $a('budget.index') }}" href="{{ route('budget.index') }}"><i class="bi bi-plus-circle"></i>Ajouter un budget</a>
+    @endif
+
     @if($can('users') || $can('contacts'))
     <div class="side-label">Administration</div>
     @if($can('users'))
@@ -110,6 +117,7 @@
       @endif
     </a>
     @endif
+    <a class="side-link {{ $a('reservation.index') }}" href="{{ route('reservation.index') }}"><i class="bi bi-calendar-check"></i>Réservations</a>
     @endif
 
     <div class="side-label">Liens</div>

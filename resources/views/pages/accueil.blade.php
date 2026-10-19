@@ -147,6 +147,47 @@
       .ap-quote{ font-size: 1rem; }
     }
 
+    /* Bouton flottant de réservation */
+    .fab-reservation {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--or), var(--or-clair));
+      color: var(--nuit);
+      border: none;
+      box-shadow: 0 4px 20px rgba(212,169,55,0.5);
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .fab-reservation:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 25px rgba(212,169,55,0.7);
+    }
+
+    .fab-reservation i {
+      font-size: 28px;
+    }
+
+    @media (max-width: 768px) {
+      .fab-reservation {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+      }
+      .fab-reservation i {
+        font-size: 24px;
+      }
+    }
+
 
 </style>
 
@@ -399,6 +440,77 @@
     </div>
   </div>
 </section>
+
+{{-- Bouton flottant de réservation --}}
+<button class="fab-reservation" data-bs-toggle="modal" data-bs-target="#reservationModal" title="Faire une réservation">
+  <i class="bi bi-calendar-plus"></i>
+</button>
+
+{{-- Modal de réservation --}}
+<div class="modal fade" id="reservationModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="bi bi-calendar-check me-2" style="color: var(--or);"></i>
+          Réservation
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <form method="POST" action="{{ route('reservation.store') }}">
+        @csrf
+        <div class="modal-body">
+          @if(session('ok'))
+            <div class="alert alert-success">
+              {{ session('ok') }}
+            </div>
+          @endif
+
+          <div class="mb-3">
+            <label class="form-label">Nom complet <span class="text-danger">*</span></label>
+            <input type="text" name="nom" class="form-control" required placeholder="Votre nom">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Nom de la paroisse <span class="text-danger">*</span></label>
+            <input type="text" name="paroisse" class="form-control" required placeholder="Ex: Paroisse Saint-Pierre">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Diocèse / Vicariat</label>
+            <input type="text" name="diocese_vicariat" class="form-control" placeholder="Ex: Diocèse de Yopougon">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Téléphone <span class="text-danger">*</span></label>
+            <input type="tel" name="telephone" class="form-control" required placeholder="+225 XX XX XX XX XX">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Date de réservation <span class="text-danger">*</span></label>
+            <input type="date" name="date_reservation" class="form-control" required min="{{ now()->addDay()->format('Y-m-d') }}">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Nombre de personnes <span class="text-danger">*</span></label>
+            <input type="number" name="nombre_personnes" class="form-control" required min="1" max="500" value="1">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Message (optionnel)</label>
+            <textarea name="message" class="form-control" rows="3" placeholder="Précisez vos besoins..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn" style="background: var(--or); color: var(--nuit);">
+            <i class="bi bi-send me-2"></i>Envoyer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 @endsection
