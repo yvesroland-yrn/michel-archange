@@ -10,9 +10,31 @@ use PhpOffice\PhpWord\IOFactory;
 
 class ReservationController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $reservations = Reservation::orderBy('created_at', 'desc')->get();
+        // Récupérer toutes les réservations pour les filtres
+        $allReservations = Reservation::orderBy('created_at', 'desc')->get();
+
+        // Appliquer les filtres pour l'affichage
+        $query = Reservation::orderBy('created_at', 'desc');
+
+        if ($request->filled('statut')) {
+            $query->where('statut', $request->statut);
+        }
+        if ($request->filled('paroisse')) {
+            $query->where('paroisse', $request->paroisse);
+        }
+        if ($request->filled('diocese')) {
+            $query->where('diocese_vicariat', $request->diocese);
+        }
+        if ($request->filled('date_debut')) {
+            $query->where('date_reservation', '>=', $request->date_debut);
+        }
+        if ($request->filled('date_fin')) {
+            $query->where('date_reservation', '<=', $request->date_fin);
+        }
+
+        $reservations = $query->get();
 
         // Statistiques par paroisse
         $statsParParoisse = $reservations->groupBy('paroisse')->map(function ($group) {
@@ -36,7 +58,7 @@ class ReservationController extends Controller
             ];
         })->sortByDesc('total');
 
-        return view('reservations.index', compact('reservations', 'statsParParoisse', 'statsParDiocese'));
+        return view('reservations.index', compact('reservations', 'allReservations', 'statsParParoisse', 'statsParDiocese'));
     }
 
     public function store(Request $request)
@@ -86,9 +108,28 @@ class ReservationController extends Controller
         return back()->with('ok', 'Réservation supprimée avec succès.');
     }
 
-    public function exportPdf()
+    public function exportPdf(Request $request)
     {
-        $reservations = Reservation::orderBy('created_at', 'desc')->get();
+        $query = Reservation::orderBy('created_at', 'desc');
+
+        // Filtres
+        if ($request->filled('statut')) {
+            $query->where('statut', $request->statut);
+        }
+        if ($request->filled('paroisse')) {
+            $query->where('paroisse', $request->paroisse);
+        }
+        if ($request->filled('diocese')) {
+            $query->where('diocese_vicariat', $request->diocese);
+        }
+        if ($request->filled('date_debut')) {
+            $query->where('date_reservation', '>=', $request->date_debut);
+        }
+        if ($request->filled('date_fin')) {
+            $query->where('date_reservation', '<=', $request->date_fin);
+        }
+
+        $reservations = $query->get();
 
         // Statistiques par paroisse
         $statsParParoisse = $reservations->groupBy('paroisse')->map(function ($group) {
@@ -120,9 +161,28 @@ class ReservationController extends Controller
         return $pdf->stream('rapport-reservations.pdf');
     }
 
-    public function exportWord()
+    public function exportWord(Request $request)
     {
-        $reservations = Reservation::orderBy('created_at', 'desc')->get();
+        $query = Reservation::orderBy('created_at', 'desc');
+
+        // Filtres
+        if ($request->filled('statut')) {
+            $query->where('statut', $request->statut);
+        }
+        if ($request->filled('paroisse')) {
+            $query->where('paroisse', $request->paroisse);
+        }
+        if ($request->filled('diocese')) {
+            $query->where('diocese_vicariat', $request->diocese);
+        }
+        if ($request->filled('date_debut')) {
+            $query->where('date_reservation', '>=', $request->date_debut);
+        }
+        if ($request->filled('date_fin')) {
+            $query->where('date_reservation', '<=', $request->date_fin);
+        }
+
+        $reservations = $query->get();
 
         // Statistiques par paroisse
         $statsParParoisse = $reservations->groupBy('paroisse')->map(function ($group) {

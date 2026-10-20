@@ -1,6 +1,62 @@
 @extends('layouts.paroisse')
 @section('contenu')
 
+<!-- Filtres -->
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">
+    <h5 class="mb-0"><i class="bi bi-funnel"></i> Filtres d'exportation</h5>
+  </div>
+  <div class="card-body">
+    <form method="GET" action="{{ route('reservation.index') }}" id="filterForm">
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">Statut</label>
+          <select name="statut" class="form-select" id="filterStatut">
+            <option value="">Tous</option>
+            <option value="en_attente" {{ request('statut') === 'en_attente' ? 'selected' : '' }}>En attente</option>
+            <option value="confirmee" {{ request('statut') === 'confirmee' ? 'selected' : '' }}>Confirmée</option>
+            <option value="annulee" {{ request('statut') === 'annulee' ? 'selected' : '' }}>Annulée</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Paroisse</label>
+          <select name="paroisse" class="form-select" id="filterParoisse">
+            <option value="">Toutes</option>
+            @foreach($allReservations->pluck('paroisse')->unique()->sort() as $paroisse)
+              <option value="{{ $paroisse }}" {{ request('paroisse') === $paroisse ? 'selected' : '' }}>{{ $paroisse }}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Diocèse/Vicariat</label>
+          <select name="diocese" class="form-select" id="filterDiocese">
+            <option value="">Tous</option>
+            @foreach($allReservations->pluck('diocese_vicariat')->filter()->unique()->sort() as $diocese)
+              <option value="{{ $diocese }}" {{ request('diocese') === $diocese ? 'selected' : '' }}>{{ $diocese }}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="col-md-1">
+          <label class="form-label">Date début</label>
+          <input type="date" name="date_debut" class="form-control" id="filterDateDebut" value="{{ request('date_debut') }}">
+        </div>
+        <div class="col-md-1">
+          <label class="form-label">Date fin</label>
+          <input type="date" name="date_fin" class="form-control" id="filterDateFin" value="{{ request('date_fin') }}">
+        </div>
+        <div class="col-md-1 d-flex align-items-end">
+          <button type="submit" class="btn btn-primary me-1">
+            <i class="bi bi-search"></i>
+          </button>
+          <a href="{{ route('reservation.index') }}" class="btn btn-secondary">
+            <i class="bi bi-x-lg"></i>
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
 <style>
 .voir-btn {
   transition: all 0.3s ease;
@@ -136,12 +192,12 @@
     <a href="{{ route('dashboard') }}" class="btn btn-outline-primary">
       <i class="bi bi-arrow-left"></i> Retour
     </a>
-    <a href="{{ route('reservation.export-pdf') }}" class="btn btn-outline-success" target="_blank">
+    <button onclick="exportPdf()" class="btn btn-outline-success" target="_blank">
       <i class="bi bi-file-earmark-pdf"></i> PDF
-    </a>
-    <a href="{{ route('reservation.export-word') }}" class="btn btn-outline-info">
+    </button>
+    <button onclick="exportWord()" class="btn btn-outline-info">
       <i class="bi bi-file-earmark-word"></i> Word
-    </a>
+    </button>
   </div>
 </div>
 
@@ -451,5 +507,39 @@ function voirReservation(id) {
   document.getElementById('voir-statut').innerHTML = '<span class="badge ' + (data.statut === 'en_attente' ? 'bg-warning' : (data.statut === 'confirmee' ? 'bg-success' : 'bg-danger')) + '">' + statutText + '</span>';
 
   new bootstrap.Modal(document.getElementById('voirReservationModal')).show();
+}
+
+function exportPdf() {
+  const params = new URLSearchParams();
+  const statut = document.getElementById('filterStatut').value;
+  const paroisse = document.getElementById('filterParoisse').value;
+  const diocese = document.getElementById('filterDiocese').value;
+  const dateDebut = document.getElementById('filterDateDebut').value;
+  const dateFin = document.getElementById('filterDateFin').value;
+
+  if (statut) params.append('statut', statut);
+  if (paroisse) params.append('paroisse', paroisse);
+  if (diocese) params.append('diocese', diocese);
+  if (dateDebut) params.append('date_debut', dateDebut);
+  if (dateFin) params.append('date_fin', dateFin);
+
+  window.open('{{ route('reservation.export-pdf') }}?' + params.toString(), '_blank');
+}
+
+function exportWord() {
+  const params = new URLSearchParams();
+  const statut = document.getElementById('filterStatut').value;
+  const paroisse = document.getElementById('filterParoisse').value;
+  const diocese = document.getElementById('filterDiocese').value;
+  const dateDebut = document.getElementById('filterDateDebut').value;
+  const dateFin = document.getElementById('filterDateFin').value;
+
+  if (statut) params.append('statut', statut);
+  if (paroisse) params.append('paroisse', paroisse);
+  if (diocese) params.append('diocese', diocese);
+  if (dateDebut) params.append('date_debut', dateDebut);
+  if (dateFin) params.append('date_fin', dateFin);
+
+  window.location.href = '{{ route('reservation.export-word') }}?' + params.toString();
 }
 </script>
