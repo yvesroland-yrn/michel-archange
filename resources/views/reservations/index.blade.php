@@ -7,7 +7,7 @@
     <h5 class="mb-0"><i class="bi bi-funnel"></i> Filtres d'exportation</h5>
   </div>
   <div class="card-body">
-    <form method="GET" action="{{ route('reservation.index') }}" id="filterForm">
+    <form method="GET" action="{{ route('reservations.admin') }}" id="filterForm">
       <div class="row g-3">
         <div class="col-md-3">
           <label class="form-label">Statut</label>
@@ -48,7 +48,7 @@
           <button type="submit" class="btn btn-primary me-1">
             <i class="bi bi-search"></i>
           </button>
-          <a href="{{ route('reservation.index') }}" class="btn btn-secondary">
+          <a href="{{ route('reservations.admin') }}" class="btn btn-secondary">
             <i class="bi bi-x-lg"></i>
           </a>
         </div>
@@ -359,7 +359,7 @@
                   </button>
                   <ul class="dropdown-menu">
                     <li>
-                      <form method="POST" action="{{ route('reservation.update-statut', $reservation->id) }}">
+                      <form method="POST" action="{{ route('reservations.update-statut', $reservation->id) }}">
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="statut" value="en_attente">
@@ -369,7 +369,7 @@
                       </form>
                     </li>
                     <li>
-                      <form method="POST" action="{{ route('reservation.update-statut', $reservation->id) }}">
+                      <form method="POST" action="{{ route('reservations.update-statut', $reservation->id) }}">
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="statut" value="confirmee">
@@ -379,7 +379,7 @@
                       </form>
                     </li>
                     <li>
-                      <form method="POST" action="{{ route('reservation.update-statut', $reservation->id) }}">
+                      <form method="POST" action="{{ route('reservations.update-statut', $reservation->id) }}">
                         @csrf
                         @method('PUT')
                         <input type="hidden" name="statut" value="annulee">
@@ -390,7 +390,7 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                      <form method="POST" action="{{ route('reservation.destroy', $reservation->id) }}" onsubmit="return confirm('Supprimer cette réservation ?')">
+                      <form method="POST" action="{{ route('reservations.destroy', $reservation->id) }}" onsubmit="return confirm('Supprimer cette réservation ?')">
                         @method('DELETE')
                         @csrf
                         <button type="submit" class="dropdown-item text-danger">
@@ -523,7 +523,7 @@ function exportPdf() {
   if (dateDebut) params.append('date_debut', dateDebut);
   if (dateFin) params.append('date_fin', dateFin);
 
-  window.open('{{ route('reservation.export-pdf') }}?' + params.toString(), '_blank');
+  window.open('{{ route('reservations.export-pdf') }}?' + params.toString(), '_blank');
 }
 
 function exportWord() {
@@ -540,6 +540,6 @@ function exportWord() {
   if (dateDebut) params.append('date_debut', dateDebut);
   if (dateFin) params.append('date_fin', dateFin);
 
-  window.location.href = '{{ route('reservation.export-word') }}?' + params.toString();
+  window.location.href = '{{ route('reservations.export-word') }}?' + params.toString();
 }
 </script>

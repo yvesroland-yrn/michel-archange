@@ -119,7 +119,9 @@
       @endif
     </a>
     @endif
-    <a class="side-link {{ $a('reservation.index') }}" href="{{ route('reservation.index') }}"><i class="bi bi-calendar-check"></i>Réservations</a>
+    @if($can('reservations'))
+    <a class="side-link {{ $a('reservations.admin') }}" href="{{ route('reservations.admin') }}"><i class="bi bi-calendar-check"></i>Réservations</a>
+    @endif
     @endif
 
     <div class="side-label">Liens</div>

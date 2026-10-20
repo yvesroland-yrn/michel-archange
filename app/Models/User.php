@@ -34,6 +34,7 @@ class User extends Authenticatable
         'stock' => 'Gestion du stock',
         'users' => 'Gestion des utilisateurs',
         'contacts' => 'Contact nous',
+        'reservations' => 'Réservations',
     ];
 
     /**

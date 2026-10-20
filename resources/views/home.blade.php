@@ -52,6 +52,125 @@
   .btn-outline-light-soft{border:1px solid rgba(255,255,255,.55);color:#fff}
   .btn-outline-light-soft:hover{background:var(--carte);color:var(--nuit)}
 
+  /* ---------- Responsive Design ---------- */
+
+  /* Extra Small Devices (phones, 320px and up) */
+  @media (max-width: 375px) {
+    .hero { padding: 5rem 0.75rem 4rem; min-height: 500px; }
+    .hero .crest { width: 90px; height: 90px; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero .sub { font-size: 1rem; }
+    .hero .verse { font-size: 0.9rem; }
+    .hero-actions { flex-direction: column; gap: 0.5rem; }
+    .hero-actions .btn { width: 100%; }
+    .times-card { margin: 0 0.5rem; }
+    .time-item { padding: 1rem; flex-direction: column; gap: 0.5rem; }
+    .time-item i { font-size: 1.2rem; }
+    .time-item span { font-size: 0.85rem; }
+    section.block { padding: 3rem 0; }
+    .section-title { font-size: 1.4rem; }
+    .section-intro { font-size: 0.9rem; }
+    .site-nav .navbar-brand img { width: 35px; height: 35px; }
+    .brand-name { font-size: 0.85rem; }
+    .brand-name small { font-size: 0.6rem; }
+  }
+
+  /* Small Devices (landscape phones, 376px to 575px) */
+  @media (min-width: 376px) and (max-width: 575px) {
+    .hero { padding: 5.5rem 1rem 4.5rem; min-height: 550px; }
+    .hero .crest { width: 100px; height: 100px; }
+    .hero h1 { font-size: 2rem; }
+    .time-item { padding: 1.1rem 1.2rem; }
+    section.block { padding: 3.5rem 0; }
+  }
+
+  /* Medium Devices (tablets, 576px to 767px) */
+  @media (min-width: 576px) and (max-width: 767px) {
+    .hero { padding: 6rem 1.5rem 5rem; min-height: 580px; }
+    .hero .crest { width: 110px; height: 110px; }
+    .hero h1 { font-size: 2.4rem; }
+    .time-item { padding: 1.2rem 1.3rem; }
+    section.block { padding: 4rem 0; }
+    .pillars { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Large Devices (desktops, 768px to 991px) */
+  @media (min-width: 768px) and (max-width: 991px) {
+    .hero { padding: 6.5rem 2rem 5.5rem; min-height: 620px; }
+    .hero .crest { width: 115px; height: 115px; }
+    .hero h1 { font-size: 2.8rem; }
+    .times-card { margin: 0 1rem; }
+    section.block { padding: 4.5rem 0; }
+    .pillars { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Extra Large Devices (large desktops, 992px to 1199px) */
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .hero { padding: 7rem 2.5rem 6rem; min-height: 650px; }
+    .hero .crest { width: 118px; height: 118px; }
+    .section-intro { max-width: 45rem; }
+  }
+
+  /* Ultra Large Devices (extra large desktops, 1200px and up) */
+  @media (min-width: 1400px) {
+    .hero { padding: 9rem 1rem 8rem; min-height: 750px; }
+    .hero h1 { font-size: 4rem; }
+    .section-intro { max-width: 50rem; }
+    .container { max-width: 1320px; }
+  }
+
+  /* Typography scaling */
+  @media (max-width: 575px) {
+    h1 { font-size: clamp(1.5rem, 5vw, 2rem); }
+    h2 { font-size: clamp(1.3rem, 4vw, 1.8rem); }
+    h3 { font-size: clamp(1.1rem, 3.5vw, 1.5rem); }
+    p { font-size: 0.95rem; }
+  }
+
+  @media (min-width: 576px) and (max-width: 991px) {
+    h1 { font-size: clamp(1.8rem, 4.5vw, 2.5rem); }
+    h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); }
+    h3 { font-size: clamp(1.3rem, 3vw, 1.7rem); }
+  }
+
+  /* Grid and spacing adjustments */
+  @media (max-width: 575px) {
+    .row > * { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .card { margin-bottom: 1rem; }
+    .card-body { padding: 1rem; }
+  }
+
+  @media (min-width: 576px) and (max-width: 767px) {
+    .row > * { padding-left: 0.75rem; padding-right: 0.75rem; }
+  }
+
+  /* Touch targets for mobile */
+  @media (max-width: 767px) {
+    .btn, .nav-link, a { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+    .btn-gold, .btn-outline-light-soft { padding: 0.75rem 1.25rem; font-size: 0.95rem; }
+  }
+
+  /* Image optimization */
+  @media (max-width: 575px) {
+    img { max-width: 100%; height: auto; }
+    .about-photo { aspect-ratio: 16/9; }
+  }
+
+  /* Form inputs for mobile */
+  @media (max-width: 575px) {
+    .form-control, .form-select { font-size: 16px; padding: 0.75rem 1rem; }
+  }
+
+  /* Footer adjustments */
+  @media (max-width: 575px) {
+    footer.site-foot { padding: 2rem 0; }
+    .footer-section { margin-bottom: 1.5rem; }
+  }
+
+  @media (min-width: 576px) and (max-width: 991px) {
+    footer.site-foot { padding: 3rem 0; }
+  }
+
   /* ---------- Accueil ---------- */
   .hero{
     position:relative;color:#fff;text-align:center;padding:7rem 1rem 6rem;
@@ -279,39 +398,43 @@
   .whatsapp-cta:hover{ background: var(--or); color: var(--encre); }
   .whatsapp-cta i{ font-size: 16px; }
 
-.btn-reserver{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: var(--or);
-  color: var(--nuit);
-  border: none;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(212, 169, 55, 0.3);
-}
-.btn-reserver:hover{
-  background: var(--nuit);
-  color: var(--or-clair);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(8, 120, 209, 0.4);
-}
-.btn-reserver .btn-icon{ transition: transform 0.3s ease; }
-.btn-reserver:hover .btn-icon{ transform: rotate(10deg); }
-
-/* Mobile : flottant au-dessus de la barre de navigation */
-@media (max-width: 768px){
+  /* Bouton Réserver */
   .btn-reserver{
-    position: fixed;
-    right: 16px;
-    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
-    z-index: 999;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--or);
+    color: var(--nuit);
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(212, 169, 55, 0.3);
   }
-}
+  .btn-reserver:hover{
+    background: var(--nuit);
+    color: var(--or-clair);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(8, 120, 209, 0.4);
+  }
+  .btn-reserver .btn-icon{ transition: transform 0.3s ease; }
+  .btn-reserver:hover .btn-icon{ transform: rotate(10deg); }
+
+  /* Mobile : bouton plus grand et en haut */
+  @media (max-width: 768px){
+    .btn-reserver{
+      position: fixed !important;
+      right: 16px !important;
+      top: 80px !important;
+      padding: 16px 28px !important;
+      font-size: 1.1rem !important;
+      z-index: 999 !important;
+    }
+  }
+
 </style>
 </head>
 

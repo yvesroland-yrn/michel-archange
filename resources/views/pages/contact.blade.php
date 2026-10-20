@@ -119,9 +119,9 @@
     <div class="row g-4">
       <div class="col-lg-5">
         <div class="contact-card h-100">
-          <div class="contact-line"><i class="bi bi-geo-alt-fill"></i><div><b>Adresse</b><span>Paroisse Saint Michel Archange, BAE<br>Abidjan, Côte d'Ivoire</span></div></div>
+          <div class="contact-line"><i class="bi bi-geo-alt-fill"></i><div><b>Adresse</b><span>Sanctuaire Marial Notre-Dame de Cana Sassako<br>Abidjan, Côte d'Ivoire</span></div></div>
           <div class="contact-line"><i class="bi bi-telephone-fill"></i><div><b>Téléphone</b><a href="tel:+2250000000000">+225 00 00 00 00 00</a></div></div>
-          <div class="contact-line"><i class="bi bi-envelope-fill"></i><div><b>E-mail</b><a href="mailto:contact@paroisse-bae.ci">contact@paroisse-bae.ci</a></div></div>
+          <div class="contact-line"><i class="bi bi-envelope-fill"></i><div><b>E-mail</b><a href="mailto:contact@sanctuaire-marial.ci">contact@sanctuaire-marial.ci</a></div></div>
           <div class="contact-line mb-0"><i class="bi bi-clock-fill"></i><div><b>Secrétariat</b><span>Lundi au vendredi, 09h00 – 17h00</span></div></div>
         </div>
       </div>
@@ -158,18 +158,22 @@
 
  {{-- ================= CARTE ================= --}}
     <div class="map-wrap mt-4">
-      <iframe
-        title="Localisation de l'Église Catholique Saint-Michel Archange"
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63557.381310619516!2d-4.1293644300250145!3d5.365561648492812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfc1ea64d785bc3f%3A0x4ffcf28d2595e43c!2s%C3%89glise%20Catholique%20Saint-Michel%20Archange!5e0!3m2!1sfr!2sci!4v1790763036017!5m2!1sfr!2sci"
-        width="100%" height="450" style="border:0;" allowfullscreen loading="lazy"
-        referrerpolicy="strict-origin-when-cross-origin"></iframe>
-      <a class="btn btn-gold mt-3"
-         href="https://www.google.com/maps/search/?api=1&query={{ urlencode('Église Catholique Saint-Michel Archange Abidjan') }}&query_place_id=ChIJP1u4baYeD78RPOWVKdjP_E8"
-         target="_blank" rel="noopener">
-        <i class="bi bi-signpost-split me-2"></i>Obtenir l'itinéraire
-      </a>
-    </div>
+  <iframe
+    title="Localisation du sanctuaire Notre-Dame de Cana de Sassako"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.2877700819104!2d-4.2801637741553265!3d5.21740783695983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfc1cf6ca602a315%3A0x5648af0cf7577b36!2sNotre%20Dame%20de%20cana%20de%20sassako!5e0!3m2!1sfr!2sci!4v1792486169958!5m2!1sfr!2sci"
+    width="100%"
+    height="450"
+    style="border:0;"
+    allowfullscreen
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"></iframe>
 
+  <a class="btn btn-gold mt-3"
+     href="https://www.google.com/maps/search/?api=1&query={{ urlencode('Notre Dame de Cana de Sassako') }}"
+     target="_blank" rel="noopener">
+    <i class="bi bi-signpost-split me-2"></i>Obtenir l'itinéraire
+  </a>
+</div>
   </div>
 
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\{AuthController, HomeController, DashboardController, F
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'accueil'])->name('home');
+Route::get('/reservation', [PagesController::class, 'reservation'])->name('reservation.index');
 Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
 Route::get('apropos', [PagesController::class, 'apropos'])->name('apropos');
 Route::get('actualites', [PagesController::class, 'annonces'])->name('annonces');
@@ -201,9 +202,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
     });
 
-    Route::get('reservations', [ReservationController::class, 'index'])->name('reservation.index');
-    Route::put('reservations/{id}/statut', [ReservationController::class, 'updateStatut'])->name('reservation.update-statut');
-    Route::delete('reservations/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
-    Route::get('reservations/export-pdf', [ReservationController::class, 'exportPdf'])->name('reservation.export-pdf');
-    Route::get('reservations/export-word', [ReservationController::class, 'exportWord'])->name('reservation.export-word');
+    Route::middleware('permission:reservations')->group(function () {
+        Route::get('reservations', [ReservationController::class, 'index'])->name('reservations.admin');
+        Route::put('reservations/{id}/statut', [ReservationController::class, 'updateStatut'])->name('reservations.update-statut');
+        Route::delete('reservations/{id}', [ReservationController::class, 'destroy'])->name('reservations.destroy');
+        Route::get('reservations/export-pdf', [ReservationController::class, 'exportPdf'])->name('reservations.export-pdf');
+        Route::get('reservations/export-word', [ReservationController::class, 'exportWord'])->name('reservations.export-word');
+    });
 });

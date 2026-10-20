@@ -9,7 +9,7 @@ class DatabaseSeeder extends Seeder {
             'name' => 'Administrateur',
             'password' => Hash::make('password'),
             'role' => 'admin',
-            'permissions' => ['fideles', 'sacrements', 'cebs', 'mouvements', 'clerge', 'conseil_paroissial', 'mouvement_paroissial', 'evenements', 'intentions', 'annonces', 'annees_catechetiques', 'classes_cate', 'catechistes', 'catechumenes', 'finances', 'stock', 'users', 'contacts']
+            'permissions' => ['fideles', 'sacrements', 'cebs', 'mouvements', 'clerge', 'conseil_paroissial', 'mouvement_paroissial', 'evenements', 'intentions', 'annonces', 'annees_catechetiques', 'classes_cate', 'catechistes', 'catechumenes', 'finances', 'stock', 'users', 'contacts', 'reservations']
         ]);
         foreach (['CEB Saint Joseph', 'CEB Sainte Marie', 'CEB Saint Pierre'] as $n) Ceb::firstOrCreate(['nom' => $n]);
     }
