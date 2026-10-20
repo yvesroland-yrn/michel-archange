@@ -279,6 +279,39 @@
   .whatsapp-cta:hover{ background: var(--or); color: var(--encre); }
   .whatsapp-cta i{ font-size: 16px; }
 
+.btn-reserver{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--or);
+  color: var(--nuit);
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(212, 169, 55, 0.3);
+}
+.btn-reserver:hover{
+  background: var(--nuit);
+  color: var(--or-clair);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(8, 120, 209, 0.4);
+}
+.btn-reserver .btn-icon{ transition: transform 0.3s ease; }
+.btn-reserver:hover .btn-icon{ transform: rotate(10deg); }
+
+/* Mobile : flottant au-dessus de la barre de navigation */
+@media (max-width: 768px){
+  .btn-reserver{
+    position: fixed;
+    right: 16px;
+    bottom: calc(160px + env(safe-area-inset-bottom, 0px));
+    z-index: 999;
+  }
+}
 </style>
 </head>
 
@@ -504,7 +537,11 @@
 
     <!-- Responsables de mouvements -->
     <div class="card border-0 shadow-sm mt-4" style="border-radius: 1rem;">
-      <div class="card-body p-4 p-lg-5">
+      <div class="card-body p-4 p-lg-5 position-relative">
+        <a href="{{ route('reservation.index') }}" class="btn-reserver position-absolute" style="top: -25px; right: 1.5rem;">
+          <span class="btn-text">Réserver</span>
+          <i class="btn-icon bi bi-calendar-check"></i>
+        </a>
         <h3 class="h4 mb-4" style="font-family: 'Cinzel', serif; color: var(--gold);">
           <i class="bi bi-music-note-beamed me-2"></i>Responsables de mouvements
         </h3>
@@ -862,6 +899,27 @@
         if (m.classList.contains('show')) bootstrap.Collapse.getOrCreateInstance(m).hide();
       });
     });
+  })();
+
+  // Effet hover sur le bouton Réserver
+  (function(){
+    var btnReserver = document.querySelector('.btn-reserver');
+    if (btnReserver) {
+      var btnText = btnReserver.querySelector('.btn-text');
+      var btnIcon = btnReserver.querySelector('.btn-icon');
+      var originalText = btnText.textContent;
+      var originalIcon = btnIcon.className;
+
+      btnReserver.addEventListener('mouseenter', function(){
+        btnText.textContent = 'Réservation';
+        btnIcon.className = 'btn-icon bi bi-calendar3';
+      });
+
+      btnReserver.addEventListener('mouseleave', function(){
+        btnText.textContent = originalText;
+        btnIcon.className = originalIcon;
+      });
+    }
   })();
 </script>
 </body>

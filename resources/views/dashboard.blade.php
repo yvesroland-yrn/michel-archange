@@ -55,7 +55,7 @@
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="mb-0"><i class="bi bi-cash-coin"></i> Trésorerie - Enregistrement rapide</h5>
     <div class="d-flex gap-2">
-      <a href="{{ route('budget.index') }}" class="btn btn-sm btn-outline-dark">
+      <a href="{{ route('budget.dashboard') }}" class="btn btn-sm btn-outline-dark">
         <i class="bi bi-graph-up"></i> Budget du sanctuaire
       </a>
       <a href="{{ route('finance.index') }}" class="btn btn-sm btn-outline-primary">Vue complète</a>

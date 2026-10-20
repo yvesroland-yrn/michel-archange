@@ -99,9 +99,11 @@
 
     @if($can('finances'))
     <div class="side-label">Budget</div>
-    <a class="side-link {{ $a('budget.tableau-de-bord') }}" href="{{ route('budget.tableau-de-bord') }}"><i class="bi bi-speedometer2"></i>Tableau de bord Budget du sanctuaire</a>
-    <a class="side-link {{ $a('budget.liste') }}" href="{{ route('budget.liste') }}"><i class="bi bi-list-ul"></i>Liste des budgets</a>
-    <a class="side-link {{ $a('budget.index') }}" href="{{ route('budget.index') }}"><i class="bi bi-plus-circle"></i>Ajouter un budget</a>
+    <a class="side-link {{ $a('budget.dashboard') }}" href="{{ route('budget.dashboard') }}"><i class="bi bi-speedometer2"></i>Tableau de bord</a>
+    <a class="side-link {{ $a('budget.lignes.*') }}" href="{{ route('budget.lignes.index') }}"><i class="bi bi-list-ul"></i>Lignes budgétaires</a>
+    <a class="side-link {{ $a('budget.mouvements.*') }}" href="{{ route('budget.mouvements.index') }}"><i class="bi bi-cash-coin"></i>Mouvements</a>
+    <a class="side-link {{ $a('budget.categories.*') }}" href="{{ route('budget.categories.index') }}"><i class="bi bi-tags"></i>Catégories</a>
+    <a class="side-link {{ $a('budget.rapport.*') }}" href="{{ route('budget.rapport.index') }}"><i class="bi bi-file-earmark-text"></i>Rapport</a>
     @endif
 
     @if($can('users') || $can('contacts'))

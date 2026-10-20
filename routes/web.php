@@ -1,6 +1,6 @@
 <?php
 use App\Http\Controllers\{AuthController, HomeController, DashboardController, FideleController, BaptemeController, SacrementController, CebController,
-    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController, DenierCulteController, CasuelController, StockController, StockReportController, BudgetController, ReservationController};
+    MouvementController, ClasseCateController, CatechumeneController, CatechisteController, AnneeCatechetiqueController, CatecheseDashboardController, EvenementController, IntentionController, AnnonceController, FinanceController, UserController, PagesController, ClergeController, ConseilParoissialController, MouvementParoissialController, ContactController, DenierCulteController, CasuelController, StockController, StockReportController, ReservationController, BudgetCategoryController, BudgetLigneController, BudgetMouvementController, BudgetDashboardController, BudgetRapportController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PagesController::class, 'accueil'])->name('home');
@@ -150,19 +150,44 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('permission:finances')->prefix('budget')->name('budget.')->group(function () {
-        Route::get('/', [BudgetController::class, 'index'])->name('index');
-        Route::get('/tableau-de-bord', [BudgetController::class, 'tableauDeBord'])->name('tableau-de-bord');
-        Route::get('/liste', [BudgetController::class, 'liste'])->name('liste');
-        Route::post('/', [BudgetController::class, 'store'])->name('store');
-        Route::post('/ligne', [BudgetController::class, 'storeLigne'])->name('ligne.store');
-        Route::delete('/ligne/{id}', [BudgetController::class, 'destroyLigne'])->name('ligne.destroy');
-        Route::put('/ligne/{id}/toggle-realise', [BudgetController::class, 'toggleRealiseLigne'])->name('ligne.toggle-realise');
-        Route::get('{annee}', [BudgetController::class, 'show'])->name('show');
-        Route::put('{annee}', [BudgetController::class, 'update'])->name('update');
-        Route::delete('{annee}', [BudgetController::class, 'destroy'])->name('destroy');
-        Route::get('{annee}/export-pdf', [BudgetController::class, 'exportPdf'])->name('export-pdf');
-        Route::get('{annee}/export-word', [BudgetController::class, 'exportWord'])->name('export-word');
-        Route::put('{annee}/notes', [BudgetController::class, 'updateNotes'])->name('update-notes');
+        // Nouveau système de budget
+        Route::get('/dashboard', [BudgetDashboardController::class, 'index'])->name('dashboard');
+
+        Route::prefix('categories')->name('categories.')->group(function () {
+            Route::get('/', [BudgetCategoryController::class, 'index'])->name('index');
+            Route::get('/create', [BudgetCategoryController::class, 'create'])->name('create');
+            Route::post('/', [BudgetCategoryController::class, 'store'])->name('store');
+            Route::get('/{category}/edit', [BudgetCategoryController::class, 'edit'])->name('edit');
+            Route::put('/{category}', [BudgetCategoryController::class, 'update'])->name('update');
+            Route::delete('/{category}', [BudgetCategoryController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('lignes')->name('lignes.')->group(function () {
+            Route::get('/', [BudgetLigneController::class, 'index'])->name('index');
+            Route::get('/create', [BudgetLigneController::class, 'create'])->name('create');
+            Route::post('/', [BudgetLigneController::class, 'store'])->name('store');
+            Route::get('/{ligne}', [BudgetLigneController::class, 'show'])->name('show');
+            Route::get('/{ligne}/edit', [BudgetLigneController::class, 'edit'])->name('edit');
+            Route::put('/{ligne}', [BudgetLigneController::class, 'update'])->name('update');
+            Route::delete('/{ligne}', [BudgetLigneController::class, 'destroy'])->name('destroy');
+            Route::post('/{ligne}/duplicate', [BudgetLigneController::class, 'duplicate'])->name('duplicate');
+        });
+
+        Route::prefix('mouvements')->name('mouvements.')->group(function () {
+            Route::get('/', [BudgetMouvementController::class, 'index'])->name('index');
+            Route::get('/create', [BudgetMouvementController::class, 'create'])->name('create');
+            Route::post('/', [BudgetMouvementController::class, 'store'])->name('store');
+            Route::get('/{mouvement}', [BudgetMouvementController::class, 'show'])->name('show');
+            Route::get('/{mouvement}/edit', [BudgetMouvementController::class, 'edit'])->name('edit');
+            Route::put('/{mouvement}', [BudgetMouvementController::class, 'update'])->name('update');
+            Route::delete('/{mouvement}', [BudgetMouvementController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('rapport')->name('rapport.')->group(function () {
+            Route::get('/', [BudgetRapportController::class, 'index'])->name('index');
+            Route::get('/export-pdf', [BudgetRapportController::class, 'exportPdf'])->name('export-pdf');
+            Route::get('/export-excel', [BudgetRapportController::class, 'exportExcel'])->name('export-excel');
+        });
     });
 
     Route::middleware('permission:users')->group(function () {
