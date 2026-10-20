@@ -24,7 +24,7 @@ class BudgetCategoryController extends Controller
             'nom' => 'required|string|max:255',
             'type' => 'required|in:depense,recette',
             'description' => 'nullable|string',
-            'actif' => 'boolean',
+            'actif' => 'nullable|boolean',
         ]);
 
         BudgetCategory::create([
@@ -49,7 +49,7 @@ class BudgetCategoryController extends Controller
             'nom' => 'required|string|max:255',
             'type' => 'required|in:depense,recette',
             'description' => 'nullable|string',
-            'actif' => 'boolean',
+            'actif' => 'nullable|boolean',
         ]);
 
         $category->update([

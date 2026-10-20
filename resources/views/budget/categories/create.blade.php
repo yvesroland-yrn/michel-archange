@@ -32,7 +32,8 @@
       </div>
       <div class="mb-3">
         <div class="form-check">
-          <input type="checkbox" name="actif" id="actif" class="form-check-input" checked>
+          <input type="hidden" name="actif" value="0">
+          <input type="checkbox" name="actif" id="actif" class="form-check-input" value="1" checked>
           <label class="form-check-label" for="actif">Actif</label>
         </div>
       </div>
